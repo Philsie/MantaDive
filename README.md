@@ -1,5 +1,12 @@
 # MantaDive
 
+<details>
+  <summary>Deadlines</summary>
+  1. Deadline 07.01.2025 <br>
+  Final Deadlines <br>
+  - 1. PZR (late February) <br>
+  - 2. PZR (mid April) <-- Fallback <br>
+</details>
 
 <details>
   <summary>
