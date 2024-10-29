@@ -54,11 +54,40 @@
   
 ```mermaid
 graph TD;
-create{{createEvent}} ---> battleEvent
-create{{createEvent}} ---> ressourceEvent
-create{{createEvent}} ---> encounterEvent
-create{{createEvent}} ---> obstacleEvent
-create{{createEvent}} ---> puzzleEvent
+
+newRun(((newRun))) --> start
+start --> createEvent{{createEvent}}
+createEvent --> battleEvent & ressourceEvent & encounterEvent & obstacleEvent & puzzleEvent
+
+subgraph BattleEvent
+  battleEvent --> battleEventOutcome{battleEventOutcome}
+  battleEventOutcome --died--> endRun(((endRun)))
+end
+
+subgraph RessourceEvent
+  ressourceEvent --risk?--> collectRessource[[collectRessource]]
+end
+
+subgraph ObstacleEvent
+  obstacleEvent --> obstacleEventChoices{obstacleEventChoices}
+  obstacleEventChoices --clear using item--> loseItem[looseItem]
+  obstacleEventChoices --clear using workaround--> getNegativeEffect[getNegativeEffect]
+end
+
+subgraph EncounterEvent
+  encounterEvent --> WIP-END1
+end
+
+subgraph PuzzleEvent
+  puzzleEvent --> WIP-END2
+end
+
+battleEventOutcome ---> |survived| newEvent
+collectRessource  ---> newEvent
+loseItem --> newEvent
+getNegativeEffect --> newEvent
+newEvent ==> createEvent
+
 ```
 
   
