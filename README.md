@@ -32,3 +32,10 @@ To match the visuals different sound effect/music might be used to convay the ev
 
 ### Anything else?
 -
+
+## Moodboard (WIP)
+
+![image](./moodboard/377ac0ac-9892-b6ff-2152-2dd754cf5ea3.jpeg)
+![image](./moodboard/869a61947e07fd6e9d185796baf14174.jpg)
+![image](./moodboard/cd1d10b6d98ddb8fce79fbba10dd5e30.jpg)
+![image](./moodboard/pixel-art-1667513486.png)
