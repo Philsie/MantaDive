@@ -34,6 +34,8 @@ MonoBehaviour:
     m_path: Assets/Scenes/SettingsMenu.unity
   - m_enabled: 1
     m_path: Assets/Scenes/UpgradeMenu.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Shop.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings: []
