@@ -22,4 +22,11 @@ public class SceneManagerController : MonoBehaviour
         LoadSceneMode isAdditive = newSceneConfig.isLoadedAdditive ? LoadSceneMode.Additive : LoadSceneMode.Single;
         SceneManager.LoadScene(newSceneConfig.sceneName, isAdditive);
     }
+    public void UnloadAdditiveScene(SceneConfigScriptableObject newSceneConfig)
+    {
+        if (SceneManager.GetSceneByName(newSceneConfig.name).isLoaded)
+        {
+            SceneManager.UnloadSceneAsync(newSceneConfig.name);
+        }
+    }
 }

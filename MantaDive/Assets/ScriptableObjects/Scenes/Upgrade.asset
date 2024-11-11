@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afe2c4da1871f5a41989e49a6848f074, type: 3}
   m_Name: Upgrade
   m_EditorClassIdentifier: 
-  sceneName: Level
+  sceneName: UpgradeMenu
   backgroundMusic: {fileID: 0}
+  isLoadedAdditive: 0
