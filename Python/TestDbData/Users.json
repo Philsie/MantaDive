@@ -1,0 +1,22 @@
+[
+    {
+        "UUID": 0,
+        "UserName": "RayVenTheManta",
+        "Tier": 42,
+        "MaxDepth": 1000,
+        "DailyDepth": 420,
+        "Upgrades":
+            {"Stamina":100,
+            "Speed":1.5}
+    },
+    {
+        "UUID": 1,
+        "UserName": "Philsie",
+        "Tier": 9,
+        "MaxDepth": 360,
+        "DailyDepth": 0,
+        "Upgrades":
+            {"Stamina":120,
+            "Speed":1.2}
+    }
+]
