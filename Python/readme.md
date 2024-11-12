@@ -1,0 +1,1 @@
+# This directory holds the Python-Backend aswell as the DB 
