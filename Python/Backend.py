@@ -23,6 +23,14 @@ def getUsers():
 
     return jsonify(users)
 
+@app.route("/api/getLeaderboard/<int:LeaderboardSpots>")
+def getLeaderboard(LeaderboardSpots):
+    users = session.query(Tab.User).order_by(Tab.User.MaxDepth.desc()).limit(LeaderboardSpots)
+
+    users = [{"UserName":user.UserName,"MaxDepth":user.MaxDepth} for user in users]
+
+    return jsonify(users)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
