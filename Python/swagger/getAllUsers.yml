@@ -1,0 +1,36 @@
+---
+responses:
+    200:
+        description: Successful response.
+        schema:
+            type: array
+            items:
+                type: object
+                properties:
+                    DailyDepth:
+                        type: number
+                        format: float
+                        description: Daily depth achieved.
+                    MaxDepth:
+                        type: number
+                        format: float
+                        description: Maximum depth achieved.
+                    Tier:
+                        type: integer
+                        description: Player's tier.
+                    UUID:
+                        type: integer
+                        description: Player's unique identifier.
+                    Upgrades:
+                        type: object
+                        properties:
+                            Speed:
+                                type: number
+                                format: float
+                                description: Speed upgrade value.
+                            Stamina:
+                                type: integer
+                                description: Stamina upgrade value.
+                    UserName:
+                        type: string
+                        description: Player's username.

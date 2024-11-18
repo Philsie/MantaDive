@@ -1,0 +1,16 @@
+---
+parameters:
+    - in: path
+      name: LeaderboardSpots
+      description: Number of positions to return
+      required: true
+      type: number
+
+responses:
+    200:
+        description: Successful response.
+        schema:
+            type: object
+            properties:
+                message:
+                    type: list

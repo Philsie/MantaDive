@@ -1,3 +1,4 @@
+from flasgger import Swagger, swag_from
 from flask import Flask, jsonify
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
@@ -7,6 +8,7 @@ import Tables as Tab
 
 # API-setup
 app = Flask("MantaDiveBackend")
+Swagger(app)
 
 # DB-setup
 engine = create_engine("sqlite:///./dev.db")
@@ -15,6 +17,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
+@swag_from("./swagger/getAllUsers.yml")
 @app.route("/api/getAllUsers")
 def getUsers():
     users = session.query(Tab.User).all()
@@ -23,6 +26,8 @@ def getUsers():
 
     return jsonify(users)
 
+
+@swag_from("./swagger/getLeaderboard.yml")
 @app.route("/api/getLeaderboard/<int:LeaderboardSpots>")
 def getLeaderboard(LeaderboardSpots):
     users = session.query(Tab.User).order_by(Tab.User.MaxDepth.desc()).limit(LeaderboardSpots)
