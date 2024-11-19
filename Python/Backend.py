@@ -36,6 +36,28 @@ def getLeaderboard(LeaderboardSpots):
 
     return jsonify(users)
 
+@swag_from("./swagger/getDailyLeaderboard.yml")
+@app.route("/api/getDailyLeaderboard/<int:LeaderboardSpots>", methods=["GET"])
+def getDailyLeaderboard(LeaderboardSpots):
+    users = (
+        session.query(Tab.User)
+        .order_by(Tab.User.DailyDepth.desc())
+        .limit(LeaderboardSpots)
+    )
+
+    users = [
+        {"UserName": user.UserName, "DailyDepth": user.DailyDepth} for user in users
+    ]
+
+    return jsonify(users)
+
+
+@swag_from("./swagger/resetDailyLeaderboard.yml")
+@app.route("/api/resetDailyLeaderboard", methods=["POST"])
+def resetDailyLeaderboard():
+    session.query(Tab.User).update({"DailyDepth": 0})
+    session.commit
+    return getDailyLeaderboard(5)
 
 @app.route("/api/user/<UUID>", methods=["GET", "POST"])
 @swag_from("./swagger/user.yml")
