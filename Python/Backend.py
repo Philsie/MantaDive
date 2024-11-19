@@ -53,20 +53,20 @@ def getDailyLeaderboard(LeaderboardSpots):
 
 
 @swag_from("./swagger/resetDailyLeaderboard.yml")
-@app.route("/api/resetDailyLeaderboard", methods=["POST"])
+@app.route("/api/resetDailyLeaderboard", methods=["PATCH"])
 def resetDailyLeaderboard():
     session.query(Tab.User).update({"DailyDepth": 0})
     session.commit
     return getDailyLeaderboard(5)
 
-@app.route("/api/user/<UUID>", methods=["GET", "POST"])
+@app.route("/api/user/<UUID>", methods=["GET", "PATCH"])
 @swag_from("./swagger/user.yml")
 def user(UUID):
     user = session.query(Tab.User).filter(Tab.User.UUID == UUID).first()
     if user:
         if request.method == "GET":
             return jsonify(user.__export__())
-        elif request.method == "POST":
+        elif request.method == "PATCH":
             args = request.args
             print(list(args.keys()))
             for key in list(args.keys()):
