@@ -23,12 +23,12 @@ jobs:
       # Step 3: Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USER }}/mantadive:latest .
+          docker build -t ${{ secrets.DOCKER_USER }}/mantadive_backend:latest .
           # Replace 'my-docker-image' with your Docker Hub repo name
           # Add other build options as needed, e.g., `-f Dockerfile.dev`
 
       # Step 4: Push the Docker image
       - name: Push Docker image
         run: |
-          docker tag ${{ secrets.DOCKER_USERNAME }}/mantadive:latest ${{ secrets.DOCKER_USERNAME }}/mantadive:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/mantadive:latest
+          docker tag ${{ secrets.DOCKER_USERNAME }}/mantadive_backend:latest ${{ secrets.DOCKER_USERNAME }}/mantadive_backend:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/mantadive_backend:latest
