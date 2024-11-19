@@ -1,1 +1,3 @@
-./Python/.venv
+./Python/.venv/
+./Python/dev.db
+./Python/__pycache__/
