@@ -4,13 +4,23 @@ parameters:
       name: LeaderboardSpots
       description: Number of positions to return
       required: true
-      type: number
+      type: string
 
 responses:
     200:
         description: Successful response.
         schema:
-            type: object
-            properties:
-                message:
-                    type: list
+            type: array
+            items:
+                type: object
+                properties:
+                    UUID:   
+                        type: integer
+                        description: Player's unique identifier.
+                    MaxDepth:
+                        type: number
+                        format: float
+                        description: Maximum depth achieved.
+                    UserName:
+                        type: string
+                        description: Player's username.                        
