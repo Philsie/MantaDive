@@ -106,7 +106,7 @@ newEvent ==> createEvent
     Docker
   </summary>
    - Docker is automaticaly build from branch <code>python-backend_and_DB </code>  <br>
-   - Run Backend using <code> docker run -p 5000:5000 --restart unless-stopped philsie/mantadive_backend:latest </code> <br>
-   - Overview of endpoints <code> http://127.0.0.1:5000/apidocs </code> <br>
+   - Run Backend using <code> docker run -p 5792:5000 --restart unless-stopped philsie/mantadive_backend:latest </code> <br>
+   - Overview of endpoints <code> http://127.0.0.1:5792/apidocs </code> <br>
 </details>
 
