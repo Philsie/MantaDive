@@ -26,3 +26,10 @@ class User(Base):
             "DailyDepth": self.DailyDepth,
             "Upgrades": self.Upgrades,
         }
+
+    def setParam(self, key, value):
+        if key == "UUID":
+            return False, "Cant change UUID"
+        else:
+            setattr(self, key, value)
+            return True, ""
