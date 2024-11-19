@@ -1,0 +1,34 @@
+name: Deploy backend on push
+on:
+  push:
+    branches:
+      - python-backend_and_DB # Replace 'main' with the branch you want to trigger on
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Docker
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      # Step 3: Build the Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USER }}/mantadive:latest .
+          # Replace 'my-docker-image' with your Docker Hub repo name
+          # Add other build options as needed, e.g., `-f Dockerfile.dev`
+
+      # Step 4: Push the Docker image
+      - name: Push Docker image
+        run: |
+          docker tag ${{ secrets.DOCKER_USERNAME }}/mantadive:latest ${{ secrets.DOCKER_USERNAME }}/mantadive:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/mantadive:latest
