@@ -1,0 +1,79 @@
+---
+parameters:
+  - name: UUID
+    in: path
+    required: true
+    schema:
+      type: string
+    description: "The UUID of the user to retrieve or update. Default is 1 if not provided."
+  - name: MaxDepth
+    in: query
+    required: false
+    schema:
+      type: number
+      format: float
+    description: "Optional query parameter to specify the maximum depth for user data retrieval."
+  - name: DailyDepth
+    in: query
+    required: false
+    schema:
+      type: number
+      format: float
+    description: "Optional query parameter to specify the daily depth value."
+  - name: Tier
+    in: query
+    required: false
+    schema:
+      type: integer
+    description: "Optional query parameter to specify the user tier."
+  - name: UserName
+    in: query
+    required: false
+    schema:
+      type: string
+    description: "Optional query parameter for the user's username."
+  - name: Upgrades
+    in: query
+    required: false
+    schema:
+      type: string
+    description: "Optional query parameter for the user's upgrade details (Speed, Stamina). Should be in JSON format."
+responses:
+  '200':
+    description: "User data successfully retrieved or updated."
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            UUID:
+              type: string
+              description: "The UUID of the user."
+            DailyDepth:
+              type: number
+              format: float
+              description: "The daily depth value of the user."
+            MaxDepth:
+              type: number
+              format: float
+              description: "The maximum depth value of the user."
+            Tier:
+              type: integer
+              description: "The tier of the user."
+            UserName:
+              type: string
+              description: "The username of the user."
+            Upgrades:
+              type: object
+              properties:
+                Speed:
+                  type: number
+                  format: float
+                  description: "The speed upgrade of the user."
+                Stamina:
+                  type: number
+                  format: float
+                  description: "The stamina upgrade of the user."
+              description: "The upgrade details for the user."
+  '400':
+    description: "Error related to invalid data or missing user."
