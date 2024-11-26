@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - python-backend_and_DB # Ensure the branch name matches exactly
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   build-and-push:
