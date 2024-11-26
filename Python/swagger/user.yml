@@ -32,12 +32,6 @@ parameters:
     schema:
       type: string
     description: "Optional query parameter for the user's username."
-  - name: Upgrades
-    in: query
-    required: false
-    schema:
-      type: string
-    description: "Optional query parameter for the user's upgrade details (Speed, Stamina). Should be in JSON format."
 
 responses:
   '200':
@@ -62,17 +56,5 @@ responses:
         UserName:
           type: string
           description: "The username of the user."
-        Upgrades:
-          type: object
-          properties:
-            Speed:
-              type: number
-              format: float
-              description: "The speed upgrade of the user."
-            Stamina:
-              type: number
-              format: float
-              description: "The stamina upgrade of the user."
-          description: "The upgrade details for the user."
   '400':
     description: "Error related to invalid data or missing user."

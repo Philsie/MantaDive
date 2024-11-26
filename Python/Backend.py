@@ -84,6 +84,6 @@ def user(UUID):
         return jsonify(f"error: user with uuid-{UUID} does not exist")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,host='0.0.0.0')
 
     session.close()
