@@ -1,3 +1,16 @@
+"""
+MantaDive Backend Application
+------------------------------
+This is the Flask backend for the MantaDive project. It handles API endpoints,
+database interactions, and other server-side functionalities for the platform.
+
+Repository: https://github.com/Philsie/MantaDive
+Branch: python-backend_and_DB
+
+Author: Philsie
+Date: 26/11/2024
+"""
+
 from flasgger import Swagger, swag_from
 from flask import Flask, jsonify, request
 from sqlalchemy import create_engine, select
