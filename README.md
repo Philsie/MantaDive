@@ -100,3 +100,9 @@ newEvent ==> createEvent
 
   
 </details>
+<details>
+  <summary>
+    Docker
+  </summary>
+  Autopushed to docker hub under philsie/mantadive_backend:latest
+</details>
