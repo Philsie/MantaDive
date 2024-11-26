@@ -2,7 +2,7 @@ name: Deploy backend on push
 on:
   push:
     branches:
-      - python-backend_and_DB # Ensure the branch name matches exactly
+      - python-backend_and_DB
   workflow_dispatch:
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
       # Step 3: Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -f ./Python/Dockerfile -t ${{ secrets.DOCKER_USER }}/mantadive_backend:latest ./Python
+          docker build -f Python/Dockerfile -t ${{ secrets.DOCKER_USER }}/mantadive_backend:latest ./Python
 
       # Step 4: Push the Docker image
       - name: Push Docker image
