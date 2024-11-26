@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - python-backend_and_DB # Replace 'main' with the branch you want to trigger on
+  workflow_dispatch:
+
 
 jobs:
   build-and-push:
