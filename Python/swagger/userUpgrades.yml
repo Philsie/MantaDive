@@ -1,0 +1,47 @@
+---
+parameters:
+  - name: UUID
+    in: path
+    type: number
+    format: integer 
+    required: true
+  - name: Speed
+    in: query
+    type: number
+    format: float
+    description: "The Speed stat of the user."
+  - name: Stamina
+    in: query
+    required: false
+    type: number
+    format: float
+    description: "The Stamina stat of the user."
+
+responses:
+  '200':
+    description: "User data successfully retrieved or updated."
+    schema:
+      type: object
+      properties:
+        UUID:
+          type: string
+          description: "The UUID of the user."
+        DailyDepth:
+          type: number
+          format: float
+          description: "The daily depth value of the user."
+        MaxDepth:
+          type: number
+          format: float
+          description: "The maximum depth value of the user."
+        Tier:
+          type: integer
+          description: "The tier of the user."
+        UserName:
+          type: string
+          description: "The username of the user."
+        Upgrades:
+          type: object
+          description: "The upgrades of the user."
+  '400':
+    description: "Error related to invalid data or missing user."

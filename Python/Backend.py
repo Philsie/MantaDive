@@ -68,7 +68,6 @@ def user(UUID):
             return jsonify(user.__export__())
         elif request.method == "PATCH":
             args = request.args
-            print(list(args.keys()))
             for key in list(args.keys()):
                 try:
                     res, reply = user.setParam(key, args[key])
@@ -80,6 +79,43 @@ def user(UUID):
                     )
             session.commit()
             return jsonify(user.__export__())
+    else:
+        return jsonify(f"error: user with uuid-{UUID} does not exist")
+
+
+@app.route("/api/userUpgrades/<UUID>", methods=["GET", "PATCH"])
+@swag_from("./swagger/userUpgrades.yml")
+def userUpgrades(UUID):
+    user = session.query(Tab.User).filter(Tab.User.UUID == UUID).first()
+    if user:
+        if request.method == "GET":
+            return jsonify(
+                user.__export__(
+                    uuid=True,
+                    UserName=True,
+                    Tier=False,
+                    MaxDepth=False,
+                    dailyDepth=False,
+                    Upgrades=True,
+                )
+            )
+        elif request.method == "PATCH":
+            args = request.args
+            for key in list(args.keys()):
+                try:
+                    res, reply = user.setUpgrades(key, args[key])
+                    if not res:
+                        return jsonify(reply)
+                except ValueError:
+                    return jsonify(
+                        f"error: user with uuid-{UUID} has no attribute-{key}"
+                    )
+
+            print("Before commit:", user.__export__())  # Debugging: state before commit
+            session.commit()  # Commit changes
+            session.refresh(user)  # Refresh the user object
+            print("After refresh:", user.__export__())  # Debugging: state after refresh
+            return jsonify(user.__export__())  # Return updated values
     else:
         return jsonify(f"error: user with uuid-{UUID} does not exist")
 

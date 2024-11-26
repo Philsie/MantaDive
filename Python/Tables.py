@@ -1,5 +1,5 @@
-from sqlalchemy import JSON, Column, Float, Integer, Sequence, String
-from sqlalchemy.orm import declarative_base
+from sqlalchemy import JSON, Column, Float, Integer, Sequence, String, cast
+from sqlalchemy.orm import attributes, declarative_base
 
 Base = declarative_base()
 
@@ -39,3 +39,14 @@ class User(Base):
         else:
             setattr(self, key, value)
             return True, ""
+
+    def setUpgrades(self, key, value):
+        if key in self.Upgrades:
+            self.Upgrades[key] = value
+            attributes.flag_modified(self, "Upgrades")
+            return True, ""
+        else:
+            return (
+                False,
+                f"Wrong key provided during setUpgrades(\\n\\t{self.__export__},\\n\\t{key},\\n\\t{value}\\n)",
+            )
