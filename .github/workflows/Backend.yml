@@ -13,6 +13,9 @@ jobs:
       # Step 1: Check out the repository
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: python-backend_and_DB
+
 
       # Step 2: Set up Docker
       - name: Log in to Docker Hub
