@@ -1,6 +1,13 @@
 # MantaDive
 
 <details>
+  <summary>
+    Docker
+  </summary>
+  Autopushed to docker hub under philsie/mantadive_backend:latest
+</details>
+
+<details>
   <summary>Deadlines</summary>
   1. Deadline 07.01.2025 <br>
   Final Deadlines <br>
@@ -44,65 +51,4 @@
   ### Anything else?
   -
 </details>
-<details>
-  <summary>
-    Moodboard (WIP)
-  </summary>
-   <a href="https://www.figma.com/board/OuiaSAw3UDDO0YRT7WPrVG/Mantadive">FigmaMoodboard</a> <br>
-  
-  ![image](./moodboard/377ac0ac-9892-b6ff-2152-2dd754cf5ea3.jpeg)
-  ![image](./moodboard/869a61947e07fd6e9d185796baf14174.jpg)
-  ![image](./moodboard/cd1d10b6d98ddb8fce79fbba10dd5e30.jpg)
-  ![image](./moodboard/pixel-art-1667513486.png)
-</details>
-<details>
-  <summary>
-    Events
-  </summary>
-  
-```mermaid
-graph TD;
 
-newRun(((newRun))) --> start
-start --> createEvent{{createEvent}}
-createEvent --> battleEvent & ressourceEvent & encounterEvent & obstacleEvent & puzzleEvent
-
-subgraph BattleEvent
-  battleEvent --> battleEventOutcome{battleEventOutcome}
-  battleEventOutcome --died--> endRun(((endRun)))
-end
-
-subgraph RessourceEvent
-  ressourceEvent --risk?--> collectRessource[[collectRessource]]
-end
-
-subgraph ObstacleEvent
-  obstacleEvent --> obstacleEventChoices{obstacleEventChoices}
-  obstacleEventChoices --clear using item--> loseItem[looseItem]
-  obstacleEventChoices --clear using workaround--> getNegativeEffect[getNegativeEffect]
-end
-
-subgraph EncounterEvent
-  encounterEvent --> WIP-END1
-end
-
-subgraph PuzzleEvent
-  puzzleEvent --> WIP-END2
-end
-
-battleEventOutcome ---> |survived| newEvent
-collectRessource  ---> newEvent
-loseItem --> newEvent
-getNegativeEffect --> newEvent
-newEvent ==> createEvent
-
-```
-
-  
-</details>
-<details>
-  <summary>
-    Docker
-  </summary>
-  Autopushed to docker hub under philsie/mantadive_backend:latest
-</details>
