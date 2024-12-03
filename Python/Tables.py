@@ -1,5 +1,6 @@
-from sqlalchemy import JSON, Column, Float, Integer, Sequence, String, cast
+from sqlalchemy import JSON, Column, Float, Integer, Sequence, String, cast, Date
 from sqlalchemy.orm import attributes, declarative_base
+from random import randint
 
 Base = declarative_base()
 
@@ -63,3 +64,29 @@ class User(Base):
                 False,
                 f"Wrong key provided during setCurrencies(\\n\\t{self.__export__},\\n\\t{key},\\n\\t{value}\\n)",
             )
+
+
+
+class Seed(Base):
+    __tablename__ = "Seed"
+
+    Date = Column(Date, primary_key=True)
+    Seed = Column(Integer, unique=True)  # Enforce uniqueness for the Seed column
+
+    def __init__(self, date):
+        self.Date = date
+        self.Seed = self._generate_unique_seed()  # Generate a unique random integer
+
+    def _generate_unique_seed(self):
+        """Generates a unique random integer for the Seed column, handling potential conflicts."""
+        while True:
+            seed = random.randint(0, 65535)
+            try:
+                # Attempt to add the new entry with the generated seed
+                session.add(Seed(date='2024-12-03', Seed=seed))  # Replace with your session object
+                session.commit()  # Commit the transaction
+                return seed  # Return the generated seed if successful
+            except IntegrityError:
+                # If a uniqueness violation occurs, retry generating a new seed
+                session.rollback()  # Rollback the transaction
+                continue
