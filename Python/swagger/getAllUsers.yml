@@ -31,6 +31,17 @@ responses:
                             Stamina:
                                 type: integer
                                 description: Stamina upgrade value.
+                    Currency:
+                        type: object
+                        properties:
+                            Standard:
+                                type: number
+                                format: float
+                                description: The standart Currency of the user.
+                            Premium:
+                                type: number
+                                format: float
+                                description: The premium Currency of the user.
                     UserName:
                         type: string
                         description: Player's username.

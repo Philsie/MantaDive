@@ -5,17 +5,18 @@ parameters:
     type: number
     format: integer 
     required: true
-  - name: Speed
-    in: query
-    type: number
-    format: float
-    description: "The Speed stat of the user."
-  - name: Stamina
+  - name: Standard
     in: query
     required: false
     type: number
     format: float
-    description: "The Stamina stat of the user."
+    description: "The standart Currency of the user."
+  - name: Premium
+    in: query
+    required: false
+    type: number
+    format: float
+    description: "The premium Currency of the user."
 
 responses:
   '200':
@@ -29,7 +30,7 @@ responses:
         UserName:
           type: string
           description: "The username of the user."
-        Upgrades:
+        Currency:
           type: object
           description: "The upgrades of the user."
   '400':
