@@ -43,6 +43,8 @@ public class PlayerStatsManager : MonoBehaviour
 
     private void InitializePlayerStats()
     {
+        //TODO: Load player stats from DB based on userID
+
         if (playerDefaultStats == null)
         {
             playerDefaultStats = AssetDatabase.LoadAssetAtPath<PlayerStats>("Assets/ScriptableObjects/PlayerStats.asset");

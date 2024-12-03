@@ -11,6 +11,7 @@ public class DatabaseCallUtility : MonoBehaviour
     private static readonly string baseUrl = "http://127.0.0.1:5792/api/";
     private static readonly string userEndpoint = "user/";
     private static readonly string userUpgradesEndpoint = "userUpgrades/";
+    private static readonly string userCurrenciesEndpoint = "userCurrencies/";
 
     private static readonly HttpClient client = new HttpClient();
 
@@ -80,6 +81,19 @@ public class DatabaseCallUtility : MonoBehaviour
         return await SendPatchRequest(url);
     }
 
+    public static async Task<bool> UpdateUserPrimaryCurrency(int userId, float standardCurrency)
+    {
+        string url = $"{baseUrl}{userCurrenciesEndpoint}{userId}?Standard={UnityWebRequest.EscapeURL(standardCurrency.ToString("F2", CultureInfo.InvariantCulture))}";
+        Debug.Log(url);
+        return await SendPatchRequest(url);
+    }
+
+    public static async Task<bool> UpdateUserPremiumCurrency(int userId, float premiumCurrency)
+    {
+        string url = $"{baseUrl}{userCurrenciesEndpoint}{userId}?Premium={UnityWebRequest.EscapeURL(premiumCurrency.ToString("F2", CultureInfo.InvariantCulture))}";
+        return await SendPatchRequest(url);
+    }
+
     public static async Task<User> FetchUserData(int userId)
     {
         string url = $"{baseUrl}{userEndpoint}{userId}";
@@ -93,6 +107,27 @@ public class DatabaseCallUtility : MonoBehaviour
             User user = JsonConvert.DeserializeObject<User>(jsonResponse);
 
             return user;
+        }
+        catch (HttpRequestException e)
+        {
+            Debug.LogError($"Request error: {e.Message}");
+            return null;
+        }
+    }
+
+    public static async Task<CurrencyResponse> FetchUserCurrencies(int userId)
+    {
+        string url = $"{baseUrl}{userCurrenciesEndpoint}{userId}";
+
+        try
+        {
+            string jsonResponse = await client.GetStringAsync(url);
+
+            Debug.Log($"Response: {jsonResponse}");
+
+            CurrencyResponse currencies = JsonConvert.DeserializeObject<CurrencyResponse>(jsonResponse);
+
+            return currencies;
         }
         catch (HttpRequestException e)
         {
