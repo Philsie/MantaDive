@@ -1,4 +1,4 @@
-from sqlalchemy import JSON, Column, Float, Integer, Sequence, String, cast, Date
+from sqlalchemy import JSON, Column, Float, Integer, Sequence, String, cast
 from sqlalchemy.orm import attributes, declarative_base
 from random import randint
 
@@ -70,12 +70,14 @@ class User(Base):
 class Seed(Base):
     __tablename__ = "Seed"
 
-    Date = Column(Date, primary_key=True)
+    Date = Column(String, primary_key=True)
     Seed = Column(Integer, unique=True)  # Enforce uniqueness for the Seed column
 
-    def __init__(self, date):
+    def __init__(self, date, seed=None):
         self.Date = date
-        self.Seed = self._generate_unique_seed()  # Generate a unique random integer
+        if seed is None:
+            self.Seed = self._generate_unique_seed()  # Generate a unique random integer
+        else: self.Seed = seed
 
     def _generate_unique_seed(self):
         """Generates a unique random integer for the Seed column, handling potential conflicts."""
@@ -90,3 +92,9 @@ class Seed(Base):
                 # If a uniqueness violation occurs, retry generating a new seed
                 session.rollback()  # Rollback the transaction
                 continue
+
+    def __export__(self):
+        return {
+            "Date": {self.Date},
+            "Seed": {self.Seed}
+        }

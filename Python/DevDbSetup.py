@@ -1,4 +1,5 @@
 import json
+import DateTime
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -19,6 +20,7 @@ if __name__ == "__main__":
         session.execute(table.delete())
     session.commit()
 
+    print("-----ADDING USERS-----")
     with open("./TestDbData/Users.json", "r") as f:
         users = json.load(f)
 
@@ -35,6 +37,19 @@ if __name__ == "__main__":
             )
 
             session.add(newUser)
+
+    print("-----ADDING SEEDS-----")
+    with open("./TestDbData/Seeds.json", "r") as f:
+        seeds = json.load(f)
+
+        for seed in seeds:
+            print(seed)
+            newSeed = Tab.Seed(
+                date = DateTime.DateTime(seed["Date"]).Date(),
+                seed = seed["Seed"]
+            )
+
+            session.add(newSeed)
 
     session.commit()
     session.close()
