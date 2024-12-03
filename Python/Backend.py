@@ -193,10 +193,12 @@ def getAllSeeds():
 
     return jsonify(seeds)
 
-#@swag_from("./swagger/getSeed.yml")
+@swag_from("./swagger/getSeed.yml")
 @app.route("/api/getSeed/<date>", methods=["GET"])
 def getSeed(date):
-    seed = session.query(Tab.Seed).filter(Tab.Seed.Date == date).first()
+    print(date)
+    y,m,d = str(date).split("_")
+    seed = session.query(Tab.Seed).filter(Tab.Seed.Date["Year"] == y,Tab.Seed.Date["Month"] == m,Tab.Seed.Date["Day"] == d).first()
     if seed:
         return jsonify(seed.__export__())
     else:

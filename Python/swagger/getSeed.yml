@@ -1,0 +1,39 @@
+---
+parameters:
+  - name: date
+    in: path
+    required: true
+    schema:
+      type: string
+    description: "The Date of the Seed."
+
+responses:
+    200:
+        description: Successful response.
+        schema:
+            type: object
+            properties:
+                ID:
+                    type: number
+                    format: integer
+                    description: ID of Seed Entry.
+                Value:
+                    type: number
+                    format: integer
+                    description: Seed used that day
+                Date:
+                    type: object
+                    description: Date of the seed.
+                    properties:
+                        Year:
+                            type: number
+                            format: integer
+                            description: Year.
+                        Month:
+                            type: number
+                            format: integer
+                            description: Month.
+                        Day:
+                            type: number
+                            format: integer
+                            description: Day.
