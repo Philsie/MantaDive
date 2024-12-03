@@ -13,11 +13,12 @@ class User(Base):
     MaxDepth = Column(Float)
     DailyDepth = Column(Float)
     Upgrades = Column(JSON)
+    Currency = Column(JSON)
 
     def __repr__(self):
-        return f"<User(UUID={self.UUID}, UserName='{self.UserName}', Tier={self.Tier}, MaxDepth={self.MaxDepth}, DailyDepth={self.DailyDepth}, Upgrades={self.Upgrades})>"
+        return f"<User(UUID={self.UUID}, UserName='{self.UserName}', Tier={self.Tier}, MaxDepth={self.MaxDepth}, DailyDepth={self.DailyDepth}, Upgrades={self.Upgrades}, Currency={self.Currency})>"
 
-    def __export__(self, uuid=True, UserName=True, Tier=True, MaxDepth=True, dailyDepth=True, Upgrades=True):
+    def __export__(self, uuid=True, UserName=True, Tier=True, MaxDepth=True, DailyDepth=True, Upgrades=True, Currency=True):
         return {
             key: getattr(self, key)
             for key, include in {
@@ -25,8 +26,9 @@ class User(Base):
                 "UserName": UserName,
                 "Tier": Tier,
                 "MaxDepth": MaxDepth,
-                "DailyDepth": dailyDepth,
-                "Upgrades": Upgrades
+                "DailyDepth": DailyDepth,
+                "Upgrades": Upgrades,
+                "Currency": Currency
             }.items()
             if include
         }
