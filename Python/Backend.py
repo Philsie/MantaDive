@@ -106,7 +106,11 @@ def userUpgrades(UUID):
                 user.__export__(
                     uuid=True,
                     UserName=True,
+                    Tier=False,
+                    MaxDepth=False,
+                    DailyDepth=False,
                     Upgrades=True,
+                    Currency=False,
                 )
             )
         elif request.method == "PATCH":
@@ -124,7 +128,15 @@ def userUpgrades(UUID):
             session.commit()
             session.refresh(user)
 
-            return jsonify(user.__export__())  # Return updated values
+            return jsonify(user.__export__(
+                    uuid=True,
+                    UserName=True,
+                    Tier=False,
+                    MaxDepth=False,
+                    DailyDepth=False,
+                    Upgrades=True,
+                    Currency=False,
+                ))  # Return updated values
     else:
         return jsonify(f"error: user with uuid-{UUID} does not exist")
 
@@ -138,6 +150,10 @@ def userCurrencies(UUID):
                 user.__export__(
                     uuid=True,
                     UserName=True,
+                    Tier=False,
+                    MaxDepth=False,
+                    DailyDepth=False,
+                    Upgrades=False,
                     Currency=True,
                 )
             )
@@ -156,7 +172,15 @@ def userCurrencies(UUID):
             session.commit()
             session.refresh(user)
 
-            return jsonify(user.__export__())  # Return updated values
+            return jsonify(user.__export__(
+                    uuid=True,
+                    UserName=True,
+                    Tier=False,
+                    MaxDepth=False,
+                    DailyDepth=False,
+                    Upgrades=False,
+                    Currency=True,
+                ))  # Return updated values
     else:
         return jsonify(f"error: user with uuid-{UUID} does not exist")
 
