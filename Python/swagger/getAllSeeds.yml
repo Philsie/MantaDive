@@ -1,0 +1,16 @@
+---
+responses:
+    200:
+        description: Successful response.
+        schema:
+            type: array
+            items:
+                type: object
+                properties:
+                    Seed:
+                        type: number
+                        format: integer
+                        description: Seed.
+                    Date:
+                        type: String
+                        description: Date of the seed.

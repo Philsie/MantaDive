@@ -184,6 +184,15 @@ def userCurrencies(UUID):
     else:
         return jsonify(f"error: user with uuid-{UUID} does not exist")
 
+@swag_from("./swagger/getAllSeeds.yml")
+@app.route("/api/getAllSeeds", methods=["GET"])
+def getAllSeeds():
+    seeds = session.query(Tab.Seed).all()
+
+    seeds = [seed.__export__() for seed in seeds]
+
+    return jsonify(seeds)
+
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0')
 

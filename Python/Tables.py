@@ -93,8 +93,16 @@ class Seed(Base):
                 session.rollback()  # Rollback the transaction
                 continue
 
-    def __export__(self):
+    def __repr__(self):
+        return f"<Seed(Date='{self.Date}', Seed={self.Seed})>"
+
+    def __export__(self, Date=True, Seed=True):
         return {
-            "Date": {self.Date},
-            "Seed": {self.Seed}
+            key: getattr(self, key)
+            for key, include in {
+                "Date": Date,
+                "Seed": Seed
+            }.items()
+            if include
         }
+        
