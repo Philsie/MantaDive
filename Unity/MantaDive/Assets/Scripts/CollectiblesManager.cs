@@ -35,7 +35,7 @@ public class CollectiblesManager : MonoBehaviour
 
     private void InitializeCollectibles()
     {
-        //TODO: Load savefile here
+        //TODO: Load value from database once endpoint exists
     }
 
     public static int GetPrimaryCurrency()
