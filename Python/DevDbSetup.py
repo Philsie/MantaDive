@@ -31,6 +31,7 @@ if __name__ == "__main__":
                 MaxDepth=user["MaxDepth"],
                 DailyDepth=user["DailyDepth"],
                 Upgrades=user["Upgrades"],
+                Currency=user["Currency"],
             )
 
             session.add(newUser)
