@@ -16,6 +16,10 @@ from flask import Flask, jsonify, request
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_serializer import Serializer
+from sqlalchemy.exc import IntegrityError
+
+from DateTime import DateTime
+from random import randint
 
 import Tables as Tab
 
@@ -204,6 +208,33 @@ def getSeed(date):
     else:
         return jsonify(f"error: Seed for date-{UUID} does not exist")
 
+#@swag_from("./swagger/newSeed.yml")
+@app.route("/api/newSeed", methods=["GET","PUT"])
+def newSeed():
+    date = DateTime().parts()
+    seed_value = randint(0,65_536)
+
+    while session.query(Tab.Seed).filter(Tab.Seed.Value == seed_value).first():
+        seed_value = randint(0,65_536)
+
+    try: 
+        newSeed = Tab.Seed(
+            Date = {
+                "Year": date[0],
+                "Month": date[1],
+                "Day": date[2]},
+            Value = seed_value
+            )
+
+        Tab.attributes.flag_modified(newSeed, "Value")
+        session.add(newSeed)
+
+        session.commit()
+        session.refresh(newSeed)
+    except IntegrityError:
+        return jsonify(f"Seed for date-{DateTime().Date()} already exists")
+    return jsonify(f"{date[0]}_{date[1]}_{date[2]}")
+    
 
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0')

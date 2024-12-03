@@ -45,7 +45,7 @@ if __name__ == "__main__":
         for seed in seeds:
             print(seed)
             newSeed = Tab.Seed(
-                ID = 
+                ID = seed["ID"],
                 Date = seed["Date"],
                 Value = seed["Seed"]
             )
