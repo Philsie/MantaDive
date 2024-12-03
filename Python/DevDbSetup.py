@@ -45,8 +45,9 @@ if __name__ == "__main__":
         for seed in seeds:
             print(seed)
             newSeed = Tab.Seed(
-                date = DateTime.DateTime(seed["Date"]).Date(),
-                seed = seed["Seed"]
+                ID = 
+                Date = seed["Date"],
+                Value = seed["Seed"]
             )
 
             session.add(newSeed)

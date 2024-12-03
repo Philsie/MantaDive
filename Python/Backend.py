@@ -193,6 +193,16 @@ def getAllSeeds():
 
     return jsonify(seeds)
 
+#@swag_from("./swagger/getSeed.yml")
+@app.route("/api/getSeed/<date>", methods=["GET"])
+def getSeed(date):
+    seed = session.query(Tab.Seed).filter(Tab.Seed.Date == date).first()
+    if seed:
+        return jsonify(seed.__export__())
+    else:
+        return jsonify(f"error: Seed for date-{UUID} does not exist")
+
+
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0')
 

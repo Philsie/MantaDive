@@ -12,5 +12,18 @@ responses:
                         format: integer
                         description: Seed.
                     Date:
-                        type: String
+                        type: object
                         description: Date of the seed.
+                        properties:
+                            Year:
+                                type: number
+                                format: integer
+                                description: Year.
+                            Month:
+                                type: number
+                                format: integer
+                                description: Month.
+                            Day:
+                                type: number
+                                format: integer
+                                description: Day.
