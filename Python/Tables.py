@@ -52,3 +52,14 @@ class User(Base):
                 False,
                 f"Wrong key provided during setUpgrades(\\n\\t{self.__export__},\\n\\t{key},\\n\\t{value}\\n)",
             )
+
+    def setCurrencies(self, key, value):
+        if key in self.Currency:
+            self.Currency[key] = value
+            attributes.flag_modified(self, "Currency")
+            return True, ""
+        else:
+            return (
+                False,
+                f"Wrong key provided during setCurrencies(\\n\\t{self.__export__},\\n\\t{key},\\n\\t{value}\\n)",
+            )

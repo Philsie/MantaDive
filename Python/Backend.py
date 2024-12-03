@@ -128,6 +128,38 @@ def userUpgrades(UUID):
     else:
         return jsonify(f"error: user with uuid-{UUID} does not exist")
 
+@app.route("/api/userCurrencies/<UUID>", methods=["GET", "PATCH"])
+@swag_from("./swagger/userCurrencies.yml")
+def userCurrencies(UUID):
+    user = session.query(Tab.User).filter(Tab.User.UUID == UUID).first()
+    if user:
+        if request.method == "GET":
+            return jsonify(
+                user.__export__(
+                    uuid=True,
+                    UserName=True,
+                    Currency=True,
+                )
+            )
+        elif request.method == "PATCH":
+            args = request.args
+            for key in list(args.keys()):
+                try:
+                    res, reply = user.setCurrencies(key, args[key])
+                    if not res:
+                        return jsonify(reply)
+                except ValueError:
+                    return jsonify(
+                        f"error: user with uuid-{UUID} has no attribute-{key}"
+                    )
+
+            session.commit()
+            session.refresh(user)
+
+            return jsonify(user.__export__())  # Return updated values
+    else:
+        return jsonify(f"error: user with uuid-{UUID} does not exist")
+
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0')
 
