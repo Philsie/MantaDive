@@ -106,9 +106,6 @@ def userUpgrades(UUID):
                 user.__export__(
                     uuid=True,
                     UserName=True,
-                    Tier=False,
-                    MaxDepth=False,
-                    dailyDepth=False,
                     Upgrades=True,
                 )
             )
@@ -124,10 +121,9 @@ def userUpgrades(UUID):
                         f"error: user with uuid-{UUID} has no attribute-{key}"
                     )
 
-            print("Before commit:", user.__export__())  # Debugging: state before commit
-            session.commit()  # Commit changes
-            session.refresh(user)  # Refresh the user object
-            print("After refresh:", user.__export__())  # Debugging: state after refresh
+            session.commit()
+            session.refresh(user)
+
             return jsonify(user.__export__())  # Return updated values
     else:
         return jsonify(f"error: user with uuid-{UUID} does not exist")
