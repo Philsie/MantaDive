@@ -5,8 +5,8 @@ public class CollectiblesManager : MonoBehaviour
 {
     private static CollectiblesManager Instance { get; set; }
 
-    private int primaryCurrency;
-    private int premiumCurrency;
+    private float primaryCurrency = 0f;
+    private float premiumCurrency = 0f;
 
     private void Awake()
     {
@@ -33,42 +33,45 @@ public class CollectiblesManager : MonoBehaviour
         return Instance;
     }
 
-    private void InitializeCollectibles()
+    private async void InitializeCollectibles()
     {
-        //TODO: Load value from database once endpoint exists
+        var userID = SessionManager.GetUserID();
+        var currencies = await DatabaseCallUtility.FetchUserCurrencies(userID);
+        primaryCurrency = currencies.Currency.Standard;
+        premiumCurrency = currencies.Currency.Premium;
     }
 
-    public static int GetPrimaryCurrency()
+    public static float GetPrimaryCurrency()
     {
         Instance = CollectiblesManager.GetInstance();
         return Instance.primaryCurrency;
     }
 
-    public static int SetPrimaryCurrency(int value)
+    public static float SetPrimaryCurrency(int value)
     {
         Instance = CollectiblesManager.GetInstance();
         return Instance.primaryCurrency = value;
     }
 
-    public static int ChangePrimaryCurrencyByAmount(int changeValue)
+    public static float ChangePrimaryCurrencyByAmount(int changeValue)
     {
         Instance = CollectiblesManager.GetInstance();
         return Instance.primaryCurrency = Instance.primaryCurrency + changeValue;
     }
 
-    public static int GetPremiumCurrency()
+    public static float GetPremiumCurrency()
     {
         Instance = CollectiblesManager.GetInstance();
         return Instance.premiumCurrency;
     }
 
-    public static int SetPremiumCurrency(int value)
+    public static float SetPremiumCurrency(int value)
     {
         Instance = CollectiblesManager.GetInstance();
         return Instance.premiumCurrency = value;
     }
 
-    public static int ChangePremiumCurrencyByAmount(int changeValue)
+    public static float ChangePremiumCurrencyByAmount(int changeValue)
     {
         Instance = CollectiblesManager.GetInstance();
         return Instance.premiumCurrency = Instance.premiumCurrency + changeValue;

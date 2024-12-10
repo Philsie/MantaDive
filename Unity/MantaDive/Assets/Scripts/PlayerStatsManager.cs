@@ -41,7 +41,7 @@ public class PlayerStatsManager : MonoBehaviour
         return Instance;
     }
 
-    private void InitializePlayerStats()
+    private async void InitializePlayerStats()
     {
         //TODO: Load player stats from DB based on userID
 
@@ -62,6 +62,36 @@ public class PlayerStatsManager : MonoBehaviour
             {
                 Debug.LogError("PlayerStats ScriptableObject not found in Resources!");
             }
+        }
+
+        var userID = SessionManager.GetUserID();
+        User user = await DatabaseCallUtility.FetchUserData(userID);
+
+        if (user != null)
+        {
+            if (user.Upgrades.TryGetValue("Speed", out float speed))
+            {
+                playerBaseSpeed = speed;
+                playerCurrentSpeed = speed;
+            }
+            else
+            {
+                Debug.LogError("Speed not found in upgrades.");
+            }
+
+            if (user.Upgrades.TryGetValue("Stamina", out float stamina))
+            {
+                playerMaxStamina = stamina;
+                playerCurrentStamina = stamina;
+            }
+            else
+            {
+                Debug.LogError("Stamina not found in upgrades.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Failed to fetch user data.");
         }
     }
 
