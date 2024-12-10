@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -12,6 +15,9 @@ public class DatabaseCallUtility : MonoBehaviour
     private static readonly string userEndpoint = "user/";
     private static readonly string userUpgradesEndpoint = "userUpgrades/";
     private static readonly string userCurrenciesEndpoint = "userCurrencies/";
+    private static readonly string dailySeedEndpoint = "getSeed/";
+    private static readonly string leaderboardEndpoint = "getLeaderboard/";
+    private static readonly string dailyLeaderboardEndpoint = "getDailyLeaderboard/";
 
     private static readonly HttpClient client = new HttpClient();
 
@@ -71,7 +77,6 @@ public class DatabaseCallUtility : MonoBehaviour
     public static async Task<bool> UpdateUserSpeed(int userId, float speed)
     {
         string url = $"{baseUrl}{userUpgradesEndpoint}{userId}?Speed={UnityWebRequest.EscapeURL(speed.ToString("F2", CultureInfo.InvariantCulture))}";
-        Debug.Log(url);
         return await SendPatchRequest(url);
     }
 
@@ -84,7 +89,6 @@ public class DatabaseCallUtility : MonoBehaviour
     public static async Task<bool> UpdateUserPrimaryCurrency(int userId, float standardCurrency)
     {
         string url = $"{baseUrl}{userCurrenciesEndpoint}{userId}?Standard={UnityWebRequest.EscapeURL(standardCurrency.ToString("F2", CultureInfo.InvariantCulture))}";
-        Debug.Log(url);
         return await SendPatchRequest(url);
     }
 
@@ -101,11 +105,7 @@ public class DatabaseCallUtility : MonoBehaviour
         try
         {
             string jsonResponse = await client.GetStringAsync(url);
-
-            Debug.Log($"Response: {jsonResponse}");
-
             User user = JsonConvert.DeserializeObject<User>(jsonResponse);
-
             return user;
         }
         catch (HttpRequestException e)
@@ -122,12 +122,67 @@ public class DatabaseCallUtility : MonoBehaviour
         try
         {
             string jsonResponse = await client.GetStringAsync(url);
-
-            Debug.Log($"Response: {jsonResponse}");
-
             CurrencyResponse currencies = JsonConvert.DeserializeObject<CurrencyResponse>(jsonResponse);
-
             return currencies;
+        }
+        catch (HttpRequestException e)
+        {
+            Debug.LogError($"Request error: {e.Message}");
+            return null;
+        }
+    }
+
+    public static async Task<int> FetchDailySeed()
+    {
+
+        string date = DateTime.Now.ToString("yyyy_MM_dd");
+        string url = $"{baseUrl}{dailySeedEndpoint}{date}";
+
+        try
+        {
+            string jsonResponse = await client.GetStringAsync(url);
+
+            JObject jsonObject = JObject.Parse(jsonResponse);
+            int seed = (int)jsonObject["Value"];
+
+            return seed;
+        }
+        catch (HttpRequestException e)
+        {
+            Debug.LogError($"Request error: {e.Message}");
+            return 0;
+        }
+    }
+
+    public static async Task<List<UserDepth>> FetchLeaderboardSpots(int numOfSpots)
+    {
+
+        string url = $"{baseUrl}{leaderboardEndpoint}{numOfSpots}";
+        Debug.Log($"URL: {url}");
+
+        try
+        {
+            string jsonResponse = await client.GetStringAsync(url);
+            List<UserDepth> userDepths = JsonConvert.DeserializeObject<List<UserDepth>>(jsonResponse);
+            return userDepths;
+        }
+        catch (HttpRequestException e)
+        {
+            Debug.LogError($"Request error: {e.Message}");
+            return null;
+        }
+    }
+
+    public static async Task<List<UserDepth>> FetchDailyLeaderboardSpots(int numOfSpots)
+    {
+
+        string url = $"{baseUrl}{dailyLeaderboardEndpoint}{numOfSpots}";
+
+        try
+        {
+            string jsonResponse = await client.GetStringAsync(url);
+            List<UserDepth> userDepths = JsonConvert.DeserializeObject<List<UserDepth>>(jsonResponse);
+            return userDepths;
         }
         catch (HttpRequestException e)
         {
