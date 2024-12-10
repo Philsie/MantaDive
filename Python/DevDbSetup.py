@@ -67,7 +67,8 @@ if __name__ == "__main__":
                 PreReq = shopItem["PreReq"],
                 Locks = shopItem["Locks"],
                 Price = shopItem["Price"],
-                Effect = shopItem["Effect"]
+                Effect = shopItem["Effect"],
+                Sprite = shopItem["Sprite"]
             )
 
             session.add(newShopItem)

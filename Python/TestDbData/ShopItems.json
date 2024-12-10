@@ -11,7 +11,8 @@
 		},
 		"Effect": {
 			"Stamina": 10
-		}
+		},
+		"Sprite": "tmp.png"
 	},
 	{
 		"ID": 2,
@@ -25,7 +26,8 @@
 		},
 		"Effect": {
 			"Damage": 2
-		}
+		},
+		"Sprite": "tmp.png"
 	},
 	{
 		"ID": 3,
@@ -39,7 +41,8 @@
 		},
 		"Effect": {
 			"Stamina": 15
-		}
+		},
+		"Sprite": "tmp.png"
 	},
 	{
 		"ID": 4,
@@ -54,7 +57,8 @@
 		"Effect": {
 			"Stamina": 10,
 			"Damage": 3
-		}
+		},
+		"Sprite": "tmp.png"
 	},
 	{
 		"ID": 5,
@@ -68,6 +72,7 @@
 		},
 		"Effect": {
 			"Damage": 5
-		}
+		},
+		"Sprite": "tmp.png"
 	}
 ]

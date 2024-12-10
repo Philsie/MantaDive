@@ -99,11 +99,12 @@ class ShopItem(Base):
     Locks = Column(String)
     Price = Column(JSON)
     Effect = Column(JSON)
+    Sprite = Column(String)
 
     def __repr__(self):
-        return f"<ShopItem(Name='{self.Name}', Description='{self.Description}', PreReq='{self.PreReq}', Locks='{self.Locks}', Price={self.Price}, Effect={self.Effect})>"
+        return f"<ShopItem(Name='{self.Name}', Description='{self.Description}', PreReq='{self.PreReq}', Locks='{self.Locks}', Price={self.Price}, Effect={self.Effect}, Sprite={self.Sprite})>"
 
-    def __export__(self, Name=True, Description=True, PreReq=True, Locks=True, Price=True, Effect=True, ID=True):
+    def __export__(self, Name=True, Description=True, PreReq=True, Locks=True, Price=True, Effect=True, ID=True, Sprite=True):
         return {
             key: getattr(self, key)
             for key, include in {
@@ -113,7 +114,8 @@ class ShopItem(Base):
                 "Locks": Locks,
                 "Price": Price,
                 "Effect": Effect,
-                "ID": ID
+                "ID": ID,
+                "Sprite": Sprite
             }.items()
             if include
         }
