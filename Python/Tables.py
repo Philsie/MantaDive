@@ -110,7 +110,7 @@ class ShopItem(Base):
                 "Name": Name,
                 "Description": Description,
                 "PreReq": PreReq,
-                "Locks": Locks
+                "Locks": Locks,
                 "Price": Price,
                 "Effect": Effect,
                 "ID": ID
