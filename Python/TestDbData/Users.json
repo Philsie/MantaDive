@@ -11,7 +11,7 @@
         "Currency":
             {"Standard":500,
             "Premium":0},
-        "ShopItems_Bought": "1_3",
+        "ShopItems_Bought": "1_2_3",
         "ShopItems_Locked": "4"
 
     },
@@ -27,7 +27,7 @@
         "Currency":
             {"Standard":9999,
             "Premium":150},
-        "ShopItems_Bought": "1_2",
-        "ShopItems_Locked": ""
+        "ShopItems_Bought": "14",
+        "ShopItems_Locked": "15"
     }
 ]

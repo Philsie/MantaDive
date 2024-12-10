@@ -1,78 +1,227 @@
 [
-	{
-		"ID": 1,
-		"Name": "Upgrade 1",
-		"Description": "UpgradeDescription 1",
-		"PreReq": "",
-		"Locks": "",
-		"Price": {
-			"Standart": 100,
-			"Premium": 0
-		},
-		"Effect": {
-			"Stamina": 10
-		},
-		"Sprite": "tmp.png"
-	},
-	{
-		"ID": 2,
-		"Name": "Upgrade 2",
-		"Description": "UpgradeDescription 2",
-		"PreReq": "",
-		"Locks": "",
-		"Price": {
-			"Standart": 0,
-			"Premium": 50
-		},
-		"Effect": {
-			"Damage": 2
-		},
-		"Sprite": "tmp.png"
-	},
-	{
-		"ID": 3,
-		"Name": "Upgrade 3",
-		"Description": "UpgradeDescription 3",
-		"PreReq": "1",
-		"Locks": "4",
-		"Price": {
-			"Standart": 150,
-			"Premium": 0
-		},
-		"Effect": {
-			"Stamina": 15
-		},
-		"Sprite": "tmp.png"
-	},
-	{
-		"ID": 4,
-		"Name": "Upgrade 4",
-		"Description": "UpgradeDescription 4",
-		"PreReq": "1",
-		"Locks": "3",
-		"Price": {
-			"Standart": 1000,
-			"Premium": 0
-		},
-		"Effect": {
-			"Stamina": 10,
-			"Damage": 3
-		},
-		"Sprite": "tmp.png"
-	},
-	{
-		"ID": 5,
-		"Name": "Upgrade 5",
-		"Description": "UpgradeDescription 5",
-		"PreReq": "1_2",
-		"Locks": "",
-		"Price": {
-			"Standart": 150,
-			"Premium": 20
-		},
-		"Effect": {
-			"Damage": 5
-		},
-		"Sprite": "tmp.png"
-	}
+    {
+        "ID": 1,
+        "Name": "Iron Lungs",
+        "Description": "Enhance stamina with advanced breathing techniques, allowing you to dive deeper and stay longer.",
+        "PreReq": "",
+        "Locks": "",
+        "Price": {
+            "Standart": 100,
+            "Premium": 0
+        },
+        "Effect": {
+            "Stamina": 10
+        },
+        "Sprite": "iron_lungs.png"
+    },
+    {
+        "ID": 2,
+        "Name": "Pressure Resilience",
+        "Description": "Train your body to withstand deep pressures, improving your stamina further.",
+        "PreReq": "1",
+        "Locks": "",
+        "Price": {
+            "Standart": 300,
+            "Premium": 0
+        },
+        "Effect": {
+            "Stamina": 20
+        },
+        "Sprite": "pressure_resilience.png"
+    },
+    {
+        "ID": 3,
+        "Name": "Endurance Mastery",
+        "Description": "Push the limits of human stamina for extended dives.",
+        "PreReq": "2",
+        "Locks": "",
+        "Price": {
+            "Standart": 800,
+            "Premium": 0
+        },
+        "Effect": {
+            "Stamina": 40
+        },
+        "Sprite": "endurance_mastery.png"
+    },
+    {
+        "ID": 4,
+        "Name": "Streamlined Suit",
+        "Description": "Reduce drag for faster underwater movement.",
+        "PreReq": "",
+        "Locks": "",
+        "Price": {
+            "Standart": 200,
+            "Premium": 0
+        },
+        "Effect": {
+            "Speed": 2
+        },
+        "Sprite": "streamlined_suit.png"
+    },
+    {
+        "ID": 5,
+        "Name": "Fin Mastery",
+        "Description": "Improve swimming technique for greater speed boosts.",
+        "PreReq": "4",
+        "Locks": "",
+        "Price": {
+            "Standart": 500,
+            "Premium": 0
+        },
+        "Effect": {
+            "Speed": 3
+        },
+        "Sprite": "fin_mastery.png"
+    },
+    {
+        "ID": 6,
+        "Name": "Aqua Dynamo",
+        "Description": "Enhance propulsion systems for exceptional speed.",
+        "PreReq": "5",
+        "Locks": "",
+        "Price": {
+            "Standart": 1000,
+            "Premium": 0
+        },
+        "Effect": {
+            "Speed": 5
+        },
+        "Sprite": "aqua_dynamo.png"
+    },
+    {
+        "ID": 7,
+        "Name": "Collector's Magnet",
+        "Description": "A small magnetic field for nearby collectibles.",
+        "PreReq": "",
+        "Locks": "",
+        "Price": {
+            "Standart": 150,
+            "Premium": 0
+        },
+        "Effect": {
+            "MagnetRadius": 2
+        },
+        "Sprite": "collectors_magnet.png"
+    },
+    {
+        "ID": 8,
+        "Name": "Abyssal Pull",
+        "Description": "Stronger magnets pull collectibles from further away.",
+        "PreReq": "7",
+        "Locks": "",
+        "Price": {
+            "Standart": 400,
+            "Premium": 0
+        },
+        "Effect": {
+            "MagnetRadius": 4
+        },
+        "Sprite": "abyssal_pull.png"
+    },
+    {
+        "ID": 9,
+        "Name": "Oceanic Vortex",
+        "Description": "Unleash an ultra-wide magnet radius to collect everything.",
+        "PreReq": "8",
+        "Locks": "",
+        "Price": {
+            "Standart": 800,
+            "Premium": 0
+        },
+        "Effect": {
+            "MagnetRadius": 6
+        },
+        "Sprite": "oceanic_vortex.png"
+    },
+    {
+        "ID": 10,
+        "Name": "Endless Breath",
+        "Description": "Achieve near-endless stamina for marathon dives.",
+        "PreReq": "",
+        "Locks": "",
+        "Price": {
+            "Standart": 0,
+            "Premium": 100
+        },
+        "Effect": {
+            "Stamina": 50
+        },
+        "Sprite": "endless_breath.png"
+    },
+    {
+        "ID": 11,
+        "Name": "Abyssal Training",
+        "Description": "Master extreme pressure endurance for longer dives.",
+        "PreReq": "10",
+        "Locks": "",
+        "Price": {
+            "Standart": 0,
+            "Premium": 250
+        },
+        "Effect": {
+            "Stamina": 70
+        },
+        "Sprite": "abyssal_training.png"
+    },
+    {
+        "ID": 12,
+        "Name": "Surge Glide",
+        "Description": "Harness underwater currents to boost speed.",
+        "PreReq": "",
+        "Locks": "13",
+        "Price": {
+            "Standart": 0,
+            "Premium": 150
+        },
+        "Effect": {
+            "Speed": 5
+        },
+        "Sprite": "surge_glide.png"
+    },
+    {
+        "ID": 13,
+        "Name": "Jetstream Boost",
+        "Description": "Install jet boosters for unparalleled speed.",
+        "PreReq": "",
+        "Locks": "12",
+        "Price": {
+            "Standart": 0,
+            "Premium": 300
+        },
+        "Effect": {
+            "Speed": 8
+        },
+        "Sprite": "jetstream_boost.png"
+    },
+    {
+        "ID": 14,
+        "Name": "Gravity Core",
+        "Description": "A gravity-based system draws collectibles effortlessly.",
+        "PreReq": "",
+        "Locks": "15",
+        "Price": {
+            "Standart": 0,
+            "Premium": 120
+        },
+        "Effect": {
+            "MagnetRadius": 8
+        },
+        "Sprite": "gravity_core.png"
+    },
+    {
+        "ID": 15,
+        "Name": "Singularity Field",
+        "Description": "Create a miniature singularity for maximum collectible pull.",
+        "PreReq": "",
+        "Locks": "14",
+        "Price": {
+            "Standart": 0,
+            "Premium": 300
+        },
+        "Effect": {
+            "MagnetRadius": 12
+        },
+        "Sprite": "singularity_field.png"
+    }
 ]
