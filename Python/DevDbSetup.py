@@ -34,6 +34,8 @@ if __name__ == "__main__":
                 DailyDepth=user["DailyDepth"],
                 Upgrades=user["Upgrades"],
                 Currency=user["Currency"],
+                ShopItems_Bought=user["ShopItems_Bought"],
+                ShopItems_Locked=user["ShopItems_Locked"],
             )
 
             session.add(newUser)
@@ -51,6 +53,25 @@ if __name__ == "__main__":
             )
 
             session.add(newSeed)
+
+    print("-----ADDING ShopItems-----")
+    with open("./TestDbData/shopItems.json", "r") as f:
+        shopItems = json.load(f)
+
+        for shopItem in shopItems:
+            print(shopItem)
+            newShopItem = Tab.ShopItem(
+                ID = shopItem["ID"],
+                Name = shopItem["Name"],
+                Description = shopItem["Description"],
+                PreReq = shopItem["PreReq"],
+                Locks = shopItem["Locks"],
+                Price = shopItem["Price"],
+                Effect = shopItem["Effect"]
+            )
+
+            session.add(newShopItem)
+
 
     session.commit()
     session.close()
