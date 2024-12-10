@@ -55,7 +55,7 @@ if __name__ == "__main__":
             session.add(newSeed)
 
     print("-----ADDING ShopItems-----")
-    with open("./TestDbData/shopItems.json", "r") as f:
+    with open("./TestDbData/ShopItems.json", "r") as f:
         shopItems = json.load(f)
 
         for shopItem in shopItems:
