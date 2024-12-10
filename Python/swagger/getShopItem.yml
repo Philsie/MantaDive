@@ -1,0 +1,47 @@
+---
+parameters:
+  - name: ID
+    in: path
+    required: true
+    schema:
+      type: integer
+    description: "The ID of the ShopItem."
+
+responses:
+    200:
+        description: Successful response.
+        schema:
+            type: object
+            properties:
+                ID:
+                    type: number
+                    format: integer
+                    description: ID of ShopItem.
+                Name:
+                    type: string
+                    description: Name of the Upgrade.
+                Description:
+                    type: string
+                    description: Description of the Upgrade.
+                PreReq:
+                    type: string
+                    description: Representation of needed ShopItem PreRequesits.
+                Locks:
+                    type: string
+                    description: Representation of ShopItem Locked by purchasing.
+                Price:
+                    type: object
+                    properties:
+                        Standard:
+                            type: number
+                            format: float
+                            description: Price in Standard Currency.
+                        Premium:
+                            type: number
+                            format: float
+                            description: Price in Premium Currency.
+                Effect:
+                    type: object
+                Sprite:
+                    type: string
+                    description: Describes the Sprite used for the Upgrade.

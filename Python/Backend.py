@@ -235,6 +235,23 @@ def newSeed():
         return jsonify(f"Seed for date-{DateTime().Date()} already exists")
     return jsonify(f"{date[0]}_{date[1]}_{date[2]}")
     
+@swag_from("./swagger/getAllShopItems.yml")
+@app.route("/api/getAllShopItems", methods=["GET"])
+def getAllShopItems():
+    shopItems = session.query(Tab.ShopItem).all()
+
+    shopItems = [shopItem.__export__() for shopItem in shopItems]
+
+    return jsonify(shopItems)
+
+@swag_from("./swagger/getShopItem.yml")
+@app.route("/api/getShopItem/<ID>", methods=["GET"])
+def getShopItem(ID):
+    shopItem = session.query(Tab.ShopItem).filter(Tab.ShopItem.ID == ID).first()
+    if shopItem:
+        return jsonify(shopItem.__export__())
+    else:
+        return jsonify(f"error: ShopItem with ID-{ID} does not exist")
 
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0')
