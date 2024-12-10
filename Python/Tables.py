@@ -14,6 +14,8 @@ class User(Base):
     DailyDepth = Column(Float)
     Upgrades = Column(JSON)
     Currency = Column(JSON)
+    ShopItems_Bought = Column(String)
+    ShopItems_Locked = Column(String)
 
     def __repr__(self):
         return f"<User(UUID={self.UUID}, UserName='{self.UserName}', Tier={self.Tier}, MaxDepth={self.MaxDepth}, DailyDepth={self.DailyDepth}, Upgrades={self.Upgrades}, Currency={self.Currency})>"
@@ -92,19 +94,21 @@ class ShopItem(Base):
     Name = Column(String)
     Description = Column(String)
     PreReq = Column(String)
+    Locks = Column(String)
     Price = Column(JSON)
     Effect = Column(JSON)
 
     def __repr__(self):
-        return f"<ShopItem(Name='{self.Name}', Description='{self.Description}', PreReq='{self.PreReq}', Price={self.Price}, Effect={self.Effect})>"
+        return f"<ShopItem(Name='{self.Name}', Description='{self.Description}', PreReq='{self.PreReq}', Locks='{self.Locks}', Price={self.Price}, Effect={self.Effect})>"
 
-    def __export__(self, Name=True, Description=True, PreReq=True, Price=True, Effect=True, ID=True):
+    def __export__(self, Name=True, Description=True, PreReq=True, Locks=True, Price=True, Effect=True, ID=True):
         return {
             key: getattr(self, key)
             for key, include in {
                 "Name": Name,
                 "Description": Description,
                 "PreReq": PreReq,
+                "Locks": Locks
                 "Price": Price,
                 "Effect": Effect,
                 "ID": ID
