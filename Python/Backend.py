@@ -253,6 +253,39 @@ def getShopItem(ID):
     else:
         return jsonify(f"error: ShopItem with ID-{ID} does not exist")
 
+@swag_from("./swagger/getAvailableShopItems-ByUser.yml")
+@app.route("/api/getAvailableShopItems/<UUID>", methods=["GET"])
+def getAvailableShopItems(UUID):
+    user = session.query(Tab.User).filter(Tab.User.UUID == UUID).first()
+    res = []
+    if user:
+        shopItems = session.query(Tab.ShopItem).all()
+
+        lockedUpgrades = user.ShopItems_Locked.split("_")
+        boughtUpgrades = user.ShopItems_Bought.split("_")
+        availableUpgrades = [str(shopItem.ID) for shopItem in shopItems]
+
+        # remove owned or locked upgrades
+        setLockedUpgrade = set(lockedUpgrades)
+        setBoughtUpgrades = set(boughtUpgrades)
+        setAvailableUpgrade = set(availableUpgrades)
+
+        setAvailableUpgrade = setAvailableUpgrade.difference(setLockedUpgrade).difference(setBoughtUpgrades)
+        availableUpgrades = list(setAvailableUpgrade)
+
+        # check if PreReq are fullfilled
+        for shopItemID in availableUpgrades:
+             shopItem = session.query(Tab.ShopItem).filter(Tab.ShopItem.ID == int(shopItemID)).first()
+             if shopItem.PreReq == "":
+                res.append(shopItem.__export__())
+             else:
+                if all(element in boughtUpgrades for element in shopItem.PreReq.split("_")):
+                    res.append(shopItem.__export__())
+
+        return jsonify(res)
+    else:
+        return jsonify(f"error: user with uuid-{UUID} does not exist")
+
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0')
 
