@@ -1,0 +1,68 @@
+[
+	{
+		"ID": 1,
+		"Name": "Upgrade 1",
+		"Description": "UpgradeDescription 1",
+		"PreReq": "",
+		"Price": {
+			"Standart": 100,
+			"Premium": 0
+		},
+		"Effect": {
+			"Stamina": 10
+		}
+	},
+	{
+		"ID": 2,
+		"Name": "Upgrade 2",
+		"Description": "UpgradeDescription 2",
+		"PreReq": "",
+		"Price": {
+			"Standart": 0,
+			"Premium": 50
+		},
+		"Effect": {
+			"Damage": 2
+		}
+	},
+	{
+		"ID": 3,
+		"Name": "Upgrade 3",
+		"Description": "UpgradeDescription 3",
+		"PreReq": "1",
+		"Price": {
+			"Standart": 150,
+			"Premium": 0
+		},
+		"Effect": {
+			"Stamina": 15
+		}
+	},
+	{
+		"ID": 4,
+		"Name": "Upgrade 4",
+		"Description": "UpgradeDescription 4",
+		"PreReq": "1",
+		"Price": {
+			"Standart": 1000,
+			"Premium": 0
+		},
+		"Effect": {
+			"Stamina": 10,
+			"Damage": 3
+		}
+	},
+	{
+		"ID": 5,
+		"Name": "Upgrade 5",
+		"Description": "UpgradeDescription 5",
+		"PreReq": "1_2",
+		"Price": {
+			"Standart": 150,
+			"Premium": 20
+		},
+		"Effect": {
+			"Damage": 5
+		}
+	}
+]
