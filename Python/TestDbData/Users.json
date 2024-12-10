@@ -10,7 +10,10 @@
             "Speed":1.5},
         "Currency":
             {"Standard":500,
-            "Premium":0}
+            "Premium":0},
+        "ShopItems_Bought": "1_3",
+        "ShopItems_Locked": "4"
+
     },
     {
         "UUID": 1,
@@ -23,6 +26,8 @@
             "Speed":1.2},
         "Currency":
             {"Standard":9999,
-            "Premium":150}
+            "Premium":150},
+        "ShopItems_Bought": "1_2",
+        "ShopItems_Locked": ""
     }
 ]

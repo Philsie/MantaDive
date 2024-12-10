@@ -4,6 +4,7 @@
 		"Name": "Upgrade 1",
 		"Description": "UpgradeDescription 1",
 		"PreReq": "",
+		"Locks": "",
 		"Price": {
 			"Standart": 100,
 			"Premium": 0
@@ -17,6 +18,7 @@
 		"Name": "Upgrade 2",
 		"Description": "UpgradeDescription 2",
 		"PreReq": "",
+		"Locks": "",
 		"Price": {
 			"Standart": 0,
 			"Premium": 50
@@ -30,6 +32,7 @@
 		"Name": "Upgrade 3",
 		"Description": "UpgradeDescription 3",
 		"PreReq": "1",
+		"Locks": "4",
 		"Price": {
 			"Standart": 150,
 			"Premium": 0
@@ -43,6 +46,7 @@
 		"Name": "Upgrade 4",
 		"Description": "UpgradeDescription 4",
 		"PreReq": "1",
+		"Locks": "3",
 		"Price": {
 			"Standart": 1000,
 			"Premium": 0
@@ -57,6 +61,7 @@
 		"Name": "Upgrade 5",
 		"Description": "UpgradeDescription 5",
 		"PreReq": "1_2",
+		"Locks": "",
 		"Price": {
 			"Standart": 150,
 			"Premium": 20
