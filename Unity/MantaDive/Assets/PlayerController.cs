@@ -19,8 +19,7 @@ public class PlayerController : MonoBehaviour
     private bool isPlayerControllable = false;
     [SerializeField]
     private float speedModifier = 0.1f;
-    //TODO: Integrate with PlayerStatsManager
-    //private float playerSpeed = 0;
+    private BoundriesController boundriesController;
 
     private void OnEnable()
     {
@@ -33,6 +32,8 @@ public class PlayerController : MonoBehaviour
             isPlayerControllable = true;
         }
         StartCoroutine(WaitForPlayerControllable());
+        boundriesController = FindFirstObjectByType<BoundriesController>()
+            .GetComponent<BoundriesController>();
     }
     private void OnDisable()
     {
@@ -47,7 +48,6 @@ public class PlayerController : MonoBehaviour
     {
         joystickValue = context.ReadValue<Vector2>();
         isMoving = true;
-        Debug.Log(joystickValue);
     }
     private void OnMoveCanceled(InputAction.CallbackContext context)
     {
@@ -58,25 +58,29 @@ public class PlayerController : MonoBehaviour
     {
         while (isPlayerControllable)
         {
-            Debug.Log("Waiting for movement");
             yield return new WaitUntil(() => isMoving);
-            Debug.Log("Movement done");
             ApplyJoystickMovement();
         }
     }
 
     private IEnumerator WaitForPlayerControllable()
     {
-        Debug.Log("Waiting for controll");
         yield return new WaitUntil(() => isPlayerControllable);
-        Debug.Log("Controll on");
         StartCoroutine(WaitForJoystickMovement());
     }
 
     private void ApplyJoystickMovement()
     {
         float speed = PlayerStats.playerSpeed; //Replace after integrating with statsmanager
-        transform.position += joystickValue * Time.deltaTime * speedModifier;
+        Vector3 updatedPosition = joystickValue * Time.deltaTime * speedModifier;
+        transform.position += updatedPosition;
+        float boundryX = boundriesController.playerBoundries.x / 2;
+        float boundryY = boundriesController.playerBoundries.y / 2;
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x, -boundryX, boundryX ),
+            Mathf.Clamp(transform.position.y, -boundryY, boundryY),
+            transform.position.z
+            );
     }
 
     public void SetPlayerControllable(bool isControllable)
@@ -93,4 +97,5 @@ public class PlayerController : MonoBehaviour
     {
         PlayerStats = playerStats;
     }
+
 }
