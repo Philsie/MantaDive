@@ -6,21 +6,13 @@ public class BoundriesController : MonoBehaviour
     public Camera camera;
     public Vector2 playerBoundries { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
         if (camera == null)
         {
             camera = Camera.main;
         }
         playerBoundries = CalculatePlayerBoundries(camera, 0);
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.GetComponent<EnemyController>() != null)
-        {
-            Debug.Log("Enemy left game area");
-            Destroy(collision.gameObject);
-        }
     }
 
     private Vector2 CalculatePlayerBoundries(Camera camera, float depth)
@@ -30,6 +22,10 @@ public class BoundriesController : MonoBehaviour
         float width = height * camera.aspect;
         Debug.Log(new Vector2 (width, height));
         return new Vector2(width, height);
+    }
+    public Vector2 GetPlayerBoundries()
+    {
+        return CalculatePlayerBoundries(camera, 0);
     }
 }
     

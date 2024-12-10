@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c48244fc905da464b8e506642036902f, type: 3}
-  m_Name: DefaultPlayer
+  m_Script: {fileID: 11500000, guid: c8977e1292524d3439a5798d8c104176, type: 3}
+  m_Name: BasicEnemy
   m_EditorClassIdentifier: 
-  playerStamina: 100
-  playerSpeed: 1
-  coinsCount: 0
-  premiumCoinsCount: 0
-  magnetRadius: 0
+  name: Basic
+  material: {fileID: 2800000, guid: 0c10944fee66b8a46aec298b5d7769ef, type: 3}
+  followsPlayer: 1
+  speed: 1
+  hitPoints: 1
+  damage: 1
