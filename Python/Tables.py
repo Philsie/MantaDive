@@ -64,8 +64,6 @@ class User(Base):
                 f"Wrong key provided during setCurrencies(\\n\\t{self.__export__},\\n\\t{key},\\n\\t{value}\\n)",
             )
 
-
-
 class Seed(Base):
     __tablename__ = "Seed"
 
@@ -87,3 +85,29 @@ class Seed(Base):
             if include
         }
         
+class ShopItem(Base):
+    __tablename__ = "ShopItem"
+
+    ID = Column(Integer, Sequence("seed_id_seq"), primary_key=True)
+    Name = Column(String)
+    Description = Column(String)
+    PreReq = Column(String)
+    Price = Column(Float)
+    Effect = Column(JSON)
+
+    def __repr__(self):
+        return f"<ShopItem(Name='{self.Name}', Description='{self.Description}', PreReq='{self.PreReq}', Price={self.Price}, Effect={self.Effect})>"
+
+    def __export__(self, Name=True, Description=True, PreReq=True, Price=True, Effect=True, ID=True):
+        return {
+            key: getattr(self, key)
+            for key, include in {
+                "Name": Name,
+                "Description": Description,
+                "PreReq": PreReq,
+                "Price": Price,
+                "Effect": Effect,
+                "ID": ID
+            }.items()
+            if include
+        }
