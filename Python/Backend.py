@@ -286,6 +286,34 @@ def getAvailableShopItems(UUID):
     else:
         return jsonify(f"error: user with uuid-{UUID} does not exist")
 
+@swag_from("./swagger/unlockShopItem-ByUser-ByShopItem.yml")
+@app.route("/api/unlockShopItem/<UUID>/<ShopItemID>", methods=["GET","PATCH"])
+def unlockShopItem(UUID, ShopItemID):
+    user = session.query(Tab.User).filter(Tab.User.UUID == UUID).first()
+    if user:
+        if str(ShopItemID) in user.ShopItems_Bought or str(ShopItemID) in user.ShopItems_Locked:
+        #if user.ShopItems_Bought.contains(str(ShopItemID)) or user.ShopItems_Locked.contains(str(ShopItemID)): 
+            return jsonify(f"error: User with uuid-{UUID} has ShopItem with id-{ShopItemID} already purchased or is locked out")
+        shopItem = session.query(Tab.ShopItem).filter(Tab.ShopItem.ID == ShopItemID).first()
+        if shopItem:
+            # update bought items
+            newBought = user.ShopItems_Bought
+            newBought += "_"+str(shopItem.ID)
+            user.ShopItems_Bought = newBought
+
+            # update locked items
+            if shopItem.Locks != "":
+                newLocked = user.ShopItems_Locked
+                newLocked += "_"+str(shopItem.Locks)
+                user.ShopItems_Locked = newLocked
+
+            return jsonify(user.__export__())
+        else:
+            return jsonify(f"error: ShopItem with id-{ShopItemID} does not exist")
+    else:
+        return jsonify(f"error: user with uuid-{UUID} does not exist")
+
+
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0')
 

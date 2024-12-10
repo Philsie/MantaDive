@@ -1,0 +1,44 @@
+---
+parameters:
+  - name: UUID
+    in: path
+    required: true
+    schema:
+      type: integer
+    description: "The UUID of the User."
+  - name: ShopItemID
+    in: path
+    required: true
+    schema:
+      type: integer
+    description: "The ID of the ShopItem."
+
+responses:
+  '200':
+    description: "User data successfully retrieved or updated."
+    schema:
+      type: object
+      properties:
+        UUID:
+          type: string
+          description: "The UUID of the user."
+        DailyDepth:
+          type: number
+          format: float
+          description: "The daily depth value of the user."
+        MaxDepth:
+          type: number
+          format: float
+          description: "The maximum depth value of the user."
+        Tier:
+          type: integer
+          description: "The tier of the user."
+        UserName:
+          type: string
+          description: "The username of the user."
+        ShopItems_Bought:
+          type: string
+          description: "ID representation of the bought ShopItems."
+        ShopItems_Locked:
+          type: string
+          description: "ID representation of the Locked ShopItems."
