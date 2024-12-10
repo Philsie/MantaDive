@@ -18,9 +18,9 @@ class User(Base):
     ShopItems_Locked = Column(String)
 
     def __repr__(self):
-        return f"<User(UUID={self.UUID}, UserName='{self.UserName}', Tier={self.Tier}, MaxDepth={self.MaxDepth}, DailyDepth={self.DailyDepth}, Upgrades={self.Upgrades}, Currency={self.Currency})>"
+        return f"<User(UUID={self.UUID}, UserName='{self.UserName}', Tier={self.Tier}, MaxDepth={self.MaxDepth}, DailyDepth={self.DailyDepth}, Upgrades={self.Upgrades}, Currency={self.Currency}, ShopItems_Bought={ShopItems_Bought}, ShopItems_Locked={self.ShopItems_Locked}>"
 
-    def __export__(self, uuid=True, UserName=True, Tier=True, MaxDepth=True, DailyDepth=True, Upgrades=True, Currency=True):
+    def __export__(self, uuid=True, UserName=True, Tier=True, MaxDepth=True, DailyDepth=True, Upgrades=True, Currency=True, ShopItems_Bought=True, ShopItems_Locked=True):
         return {
             key: getattr(self, key)
             for key, include in {
@@ -30,7 +30,9 @@ class User(Base):
                 "MaxDepth": MaxDepth,
                 "DailyDepth": DailyDepth,
                 "Upgrades": Upgrades,
-                "Currency": Currency
+                "Currency": Currency,
+                "ShopItems_Bought": ShopItems_Bought,
+                "ShopItems_Locked": ShopItems_Locked
             }.items()
             if include
         }
