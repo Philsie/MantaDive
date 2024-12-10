@@ -92,7 +92,7 @@ class ShopItem(Base):
     Name = Column(String)
     Description = Column(String)
     PreReq = Column(String)
-    Price = Column(Float)
+    Price = Column(JSON)
     Effect = Column(JSON)
 
     def __repr__(self):
