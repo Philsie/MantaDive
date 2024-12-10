@@ -45,3 +45,9 @@ responses:
                     UserName:
                         type: string
                         description: Player's username.
+                    ShopItems_Bought:
+                        type: string
+                        description: ID representation of the bought ShopItems.
+                    ShopItems_Locked:
+                        type: string
+                        description: ID representation of the Locked ShopItems.

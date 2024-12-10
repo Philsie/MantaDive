@@ -32,6 +32,18 @@ parameters:
     schema:
       type: string
     description: "Optional query parameter for the user's username."
+  - name: ShopItems_Bought
+    in: query
+    required: false
+    schema:
+      type: string
+    description: "Optional query parameter for the user's ShopItems_Bought."
+  - name: ShopItems_Locked
+    in: query
+    required: false
+    schema:
+      type: string
+    description: "Optional query parameter for the user's ShopItems_Locked."
 
 responses:
   '200':
@@ -56,5 +68,11 @@ responses:
         UserName:
           type: string
           description: "The username of the user."
+        ShopItems_Bought:
+          type: string
+          description: "ID representation of the bought ShopItems."
+        ShopItems_Locked:
+          type: string
+          description: "ID representation of the Locked ShopItems."
   '400':
     description: "Error related to invalid data or missing user."
