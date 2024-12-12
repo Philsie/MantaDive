@@ -1,3 +1,4 @@
+using System;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -6,7 +7,17 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private EnemyObjectScript _enemyObjectScript;
     private GameObject _player;
-    private bool _isFollowingPlayer;
+    private bool _isPlayerFound = false;
+    [SerializeField]
+    private float _angleOffset = -90;
+    [SerializeField]
+    private float _speedIncreaseFactor = 1.5f;
+    [SerializeField]
+    private float _speedDecreaseFactor = 0.5f;
+    private float _speedModifier;
+    private float _rotationSpeed = 5f;
+    private Vector3 _endTarget = new Vector3(0,100,0);
+
     void Start()
     {
         try
@@ -25,39 +36,82 @@ public class EnemyController : MonoBehaviour
     }
     void Update()
     {
-        if(_isFollowingPlayer)
+        bool isEnemyUnderPlayer = EnemyIsUnderPlayer();
+        if (_isPlayerFound && isEnemyUnderPlayer)
         {
-            FollowBehaviour();
+            FollowPlayer();
+        }
+        else if (!isEnemyUnderPlayer)
+        {
+            _isPlayerFound = false;
+            DecreaseSpeed();
+            MoveTowardsTarget(_endTarget);
+        }
+        else
+        {
+            MoveTowardsTarget(_endTarget);
         }
     }
 
-    private void FollowBehaviour()
+    private void FollowPlayer()
     {
         if (_player != null)
         {
-            Vector3 direction = (_player.transform.position - transform.position).normalized;
-
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-
-            transform.position += direction * _enemyObjectScript.speed * Time.deltaTime;
+            MoveTowardsTarget(_player.transform.position);
         }
+    }
+    private void MoveTowardsTarget(Vector3 targetPosition)
+    {
+        Vector3 direction = (targetPosition - transform.position).normalized;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + _angleOffset;
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+
+        transform.position += direction * _enemyObjectScript.speed * _speedModifier * Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>())
         {
-            Debug.Log("Player found");
-            _isFollowingPlayer = true;
+            PlayerIsFound();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>())
         {
-            Debug.Log("Player lost");
-            _isFollowingPlayer = false;
+            PlayerIsLost();
         }
+    }
+
+    private void PlayerIsFound()
+    {
+        _isPlayerFound = true;
+        IncreaseSpeed();
+    }
+    private void PlayerIsLost()
+    {
+        _isPlayerFound = false;
+        DecreaseSpeed();
+    }
+    private bool EnemyIsUnderPlayer()
+    {
+        return transform.position.y < _player.transform.position.y;
+    }
+    private void DecreaseSpeed()
+    {
+        _speedModifier = _speedDecreaseFactor;
+    }
+
+    private void IncreaseSpeed()
+    {
+        _speedModifier = _speedIncreaseFactor;
+    }
+
+    private void RealignEnemy()
+    {
+
     }
 }
