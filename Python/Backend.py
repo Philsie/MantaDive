@@ -291,7 +291,7 @@ def getAvailableShopItems(UUID):
 def unlockShopItem(UUID, ShopItemID):
     user = session.query(Tab.User).filter(Tab.User.UUID == UUID).first()
     if user:
-        if str(ShopItemID) in user.ShopItems_Bought or str(ShopItemID) in user.ShopItems_Locked:
+        if str(ShopItemID) in user.ShopItems_Bought.split("_") or str(ShopItemID) in user.ShopItems_Locked.split("_"):
         #if user.ShopItems_Bought.contains(str(ShopItemID)) or user.ShopItems_Locked.contains(str(ShopItemID)): 
             return jsonify(f"error: User with uuid-{UUID} has ShopItem with id-{ShopItemID} already purchased or is locked out")
         shopItem = session.query(Tab.ShopItem).filter(Tab.ShopItem.ID == ShopItemID).first()
