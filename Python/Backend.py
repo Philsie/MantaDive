@@ -37,7 +37,7 @@ session = Session()
 @swag_from("./swagger/getAllUsers.yml")
 @app.route("/api/getAllUsers", methods=["GET"])
 def getUsers():
-    users = session.query(Tab.User).all()
+    users = session.query(Tab.User).order_by(Tab.User.UUID.asc()).all()
 
     users = [user.__export__() for user in users]
 
@@ -191,7 +191,7 @@ def userCurrencies(UUID):
 @swag_from("./swagger/getAllSeeds.yml")
 @app.route("/api/getAllSeeds", methods=["GET"])
 def getAllSeeds():
-    seeds = session.query(Tab.Seed).all()
+    seeds = session.query(Tab.Seed).order_by(Tab.Seed.ID.asc()).all()
 
     seeds = [seed.__export__() for seed in seeds]
 
@@ -238,7 +238,7 @@ def newSeed():
 @swag_from("./swagger/getAllShopItems.yml")
 @app.route("/api/getAllShopItems", methods=["GET"])
 def getAllShopItems():
-    shopItems = session.query(Tab.ShopItem).all()
+    shopItems = session.query(Tab.ShopItem).order_by(Tab.ShopItem.ID.asc()).all()
 
     shopItems = [shopItem.__export__() for shopItem in shopItems]
 
@@ -259,7 +259,7 @@ def getAvailableShopItems(UUID):
     user = session.query(Tab.User).filter(Tab.User.UUID == UUID).first()
     res = []
     if user:
-        shopItems = session.query(Tab.ShopItem).all()
+        shopItems = session.query(Tab.ShopItem).order_by(Tab.ShopItem.ID.asc()).all()
 
         lockedUpgrades = user.ShopItems_Locked.split("_")
         boughtUpgrades = user.ShopItems_Bought.split("_")
@@ -272,6 +272,8 @@ def getAvailableShopItems(UUID):
 
         setAvailableUpgrade = setAvailableUpgrade.difference(setLockedUpgrade).difference(setBoughtUpgrades)
         availableUpgrades = list(setAvailableUpgrade)
+
+        availableUpgrades = sorted(availableUpgrades,key=int)
 
         # check if PreReq are fullfilled
         for shopItemID in availableUpgrades:
