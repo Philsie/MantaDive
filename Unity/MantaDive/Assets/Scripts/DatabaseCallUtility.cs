@@ -18,6 +18,9 @@ public class DatabaseCallUtility : MonoBehaviour
     private static readonly string dailySeedEndpoint = "getSeed/";
     private static readonly string leaderboardEndpoint = "getLeaderboard/";
     private static readonly string dailyLeaderboardEndpoint = "getDailyLeaderboard/";
+    private static readonly string unlockShopItemEndpoint = "unlockShopItem/";
+    private static readonly string getSingleShopItemEndpoint = "getShopItem/";
+    private static readonly string getAvailableShopItemsEndpoint = "getAvailableShopItems/";
 
     private static readonly HttpClient client = new HttpClient();
 
@@ -189,5 +192,47 @@ public class DatabaseCallUtility : MonoBehaviour
             Debug.LogError($"Request error: {e.Message}");
             return null;
         }
+    }
+
+    public static async Task<ShopItem> FetchShopItem(int shopItemID)
+    {
+
+        string url = $"{baseUrl}{getSingleShopItemEndpoint}{shopItemID}";
+
+        try
+        {
+            string jsonResponse = await client.GetStringAsync(url);
+            ShopItem shopItem = JsonConvert.DeserializeObject<ShopItem>(jsonResponse);
+            return shopItem;
+        }
+        catch (HttpRequestException e)
+        {
+            Debug.LogError($"Request error: {e.Message}");
+            return null;
+        }
+    }
+
+    public static async Task<List<ShopItem>> FetchAvailableShopItems(int userID)
+    {
+
+        string url = $"{baseUrl}{getAvailableShopItemsEndpoint}{userID}";
+
+        try
+        {
+            string jsonResponse = await client.GetStringAsync(url);
+            List<ShopItem> shopItems = JsonConvert.DeserializeObject<List<ShopItem>>(jsonResponse);
+            return shopItems;
+        }
+        catch (HttpRequestException e)
+        {
+            Debug.LogError($"Request error: {e.Message}");
+            return null;
+        }
+    }
+
+    public static async Task<bool> UnlockShopItemForUser(int userId, int shopItemId)
+    {
+        string url = $"{baseUrl}{unlockShopItemEndpoint}{userId}/{shopItemId}";
+        return await SendPatchRequest(url);
     }
 }
