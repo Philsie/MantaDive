@@ -1724,10 +1724,10 @@ MonoBehaviour:
   _speed: 0.1
   _envitonmentItemsSpeedModifier: 5
   _boundryModifier: 1.7
-  currencyText: {fileID: 0}
-  premiumCurrencyText: {fileID: 0}
+  currencyText: {fileID: 1788266197}
+  premiumCurrencyText: {fileID: 821390231}
   staminaText: {fileID: 1035444777}
-  magnetText: {fileID: 0}
+  magnetText: {fileID: 661787810}
 --- !u!4 &1874302270
 Transform:
   m_ObjectHideFlags: 0
@@ -1800,7 +1800,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4859555242527191402, guid: a4a035072c399bc4c980b27a72d86803, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1918,6 +1918,10 @@ PrefabInstance:
     - target: {fileID: 4517625005812663399, guid: 526bbe1ebc62d3745b502dfe8a65e319, type: 3}
       propertyPath: m_Name
       value: PremiumCoin
+      objectReference: {fileID: 0}
+    - target: {fileID: 4517625005812663399, guid: 526bbe1ebc62d3745b502dfe8a65e319, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5716968057773836116, guid: 526bbe1ebc62d3745b502dfe8a65e319, type: 3}
       propertyPath: m_LocalPosition.x

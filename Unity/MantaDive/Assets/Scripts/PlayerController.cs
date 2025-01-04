@@ -138,11 +138,15 @@ public class PlayerController : MonoBehaviour
     public void UpdateCurrentStaminaByValue(int value) 
     {
         stamina += value;
+        string currentStaminaText = levelController.StaminaText.text.Split(' ')[0];
+        currentStaminaText += " " + stamina.ToString();
+        levelController.StaminaText.text = currentStaminaText;
     }
 
     public void UpdateMagnetStrengthTemp(float strength, float time)
     {
         StartCoroutine(TempUpdate(strength,0,time));
+
     }
 
     public void UpdatePlayerSpeedTemp(float speed, float time)
@@ -153,11 +157,35 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator TempUpdate(float magnetUpdate, float speedUpdate, float time)
     {
+        int counter = 0;
+        string currentMagnetText;
+        if (magnetUpdate > 0)
+        {
+            currentMagnetText = levelController.MagnetText.text.Split(' ')[0];
+            currentMagnetText += " ON " + time.ToString();
+            levelController.MagnetText.text = currentMagnetText;
+        }
         magnetStrength += magnetUpdate;
         speed += speedUpdate;
-        yield return new WaitForSeconds(time);
+
+        while(time >= counter) { 
+            if(magnetUpdate > 0)
+            {
+                string[] words = levelController.MagnetText.text.Split(' ');
+                words[words.Length-1] = (time-counter).ToString();
+                levelController.MagnetText.text = string.Join(" ", words);
+            }
+            counter++;
+            yield return new WaitForSeconds(1);
+        }
         magnetStrength -= magnetUpdate;
         speed -= speedUpdate;
+        if (magnetUpdate > 0)
+        {
+            currentMagnetText = levelController.MagnetText.text.Split(' ')[0];
+            currentMagnetText += " OFF";
+            levelController.MagnetText.text = currentMagnetText;
+        }
     }
 
 }
