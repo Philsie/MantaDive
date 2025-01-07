@@ -293,11 +293,32 @@ def getAvailableShopItems(UUID):
 def unlockShopItem(UUID, ShopItemID):
     user = session.query(Tab.User).filter(Tab.User.UUID == UUID).first()
     if user:
-        if str(ShopItemID) in user.ShopItems_Bought.split("_") or str(ShopItemID) in user.ShopItems_Locked.split("_"):
-        #if user.ShopItems_Bought.contains(str(ShopItemID)) or user.ShopItems_Locked.contains(str(ShopItemID)): 
-            return jsonify(f"error: User with uuid-{UUID} has ShopItem with id-{ShopItemID} already purchased or is locked out")
-        shopItem = session.query(Tab.ShopItem).filter(Tab.ShopItem.ID == ShopItemID).first()
+        if str(ShopItemID) in user.ShopItems_Bought.split("_") or str(
+            ShopItemID
+        ) in user.ShopItems_Locked.split("_"):
+            return jsonify(
+                f"error: User with uuid-{UUID} has ShopItem with id-{ShopItemID} already purchased or is locked out"
+            )
+        shopItem = (
+            session.query(Tab.ShopItem).filter(Tab.ShopItem.ID == ShopItemID).first()
+        )
         if shopItem:
+            # check what currerency to use and if user has sufficient amount
+            currecyUsed = ""
+            if shopItem.Price["Standard"] > 0:
+                currecyUsed = "Standard"
+            elif shopItem.Price["Premium"] > 0:
+                currecyUsed = "Premium"
+            else:
+                return jsonify(
+                    f"error: ShopItem with id-{ShopItemID} has no/wrong price set"
+                )
+
+            if user.Currency[currecyUsed] < shopItem.Price[currecyUsed]:
+                return jsonify(
+                    f"error: User with uuid-{UUID} has has insufficient Currency to purchase ShopItem with id-{ShopItemID}"
+                )
+
             # update bought items
             newBought = user.ShopItems_Bought
             newBought += "_"+str(shopItem.ID)
@@ -308,6 +329,10 @@ def unlockShopItem(UUID, ShopItemID):
                 newLocked = user.ShopItems_Locked
                 newLocked += "_"+str(shopItem.Locks)
                 user.ShopItems_Locked = newLocked
+
+            # take currency from user
+            newCurrencyAmount = user.Currency[currecyUsed] - shopItem.Price[currecyUsed]
+            user.setCurrencies(currecyUsed, newCurrencyAmount)
 
             return jsonify(user.__export__())
         else:
