@@ -6,7 +6,7 @@
         "PreReq": "",
         "Locks": "",
         "Price": {
-            "Standart": 100,
+            "Standard": 100,
             "Premium": 0
         },
         "Effect": {
@@ -21,7 +21,7 @@
         "PreReq": "1",
         "Locks": "",
         "Price": {
-            "Standart": 300,
+            "Standard": 300,
             "Premium": 0
         },
         "Effect": {
@@ -36,7 +36,7 @@
         "PreReq": "2",
         "Locks": "",
         "Price": {
-            "Standart": 800,
+            "Standard": 800,
             "Premium": 0
         },
         "Effect": {
@@ -51,7 +51,7 @@
         "PreReq": "",
         "Locks": "",
         "Price": {
-            "Standart": 200,
+            "Standard": 200,
             "Premium": 0
         },
         "Effect": {
@@ -66,7 +66,7 @@
         "PreReq": "4",
         "Locks": "",
         "Price": {
-            "Standart": 500,
+            "Standard": 500,
             "Premium": 0
         },
         "Effect": {
@@ -81,7 +81,7 @@
         "PreReq": "5",
         "Locks": "",
         "Price": {
-            "Standart": 1000,
+            "Standard": 1000,
             "Premium": 0
         },
         "Effect": {
@@ -96,7 +96,7 @@
         "PreReq": "",
         "Locks": "",
         "Price": {
-            "Standart": 150,
+            "Standard": 150,
             "Premium": 0
         },
         "Effect": {
@@ -111,7 +111,7 @@
         "PreReq": "7",
         "Locks": "",
         "Price": {
-            "Standart": 400,
+            "Standard": 400,
             "Premium": 0
         },
         "Effect": {
@@ -126,7 +126,7 @@
         "PreReq": "8",
         "Locks": "",
         "Price": {
-            "Standart": 800,
+            "Standard": 800,
             "Premium": 0
         },
         "Effect": {
@@ -141,7 +141,7 @@
         "PreReq": "",
         "Locks": "",
         "Price": {
-            "Standart": 0,
+            "Standard": 0,
             "Premium": 100
         },
         "Effect": {
@@ -156,7 +156,7 @@
         "PreReq": "10",
         "Locks": "",
         "Price": {
-            "Standart": 0,
+            "Standard": 0,
             "Premium": 250
         },
         "Effect": {
@@ -171,7 +171,7 @@
         "PreReq": "",
         "Locks": "13",
         "Price": {
-            "Standart": 0,
+            "Standard": 0,
             "Premium": 150
         },
         "Effect": {
@@ -186,7 +186,7 @@
         "PreReq": "",
         "Locks": "12",
         "Price": {
-            "Standart": 0,
+            "Standard": 0,
             "Premium": 300
         },
         "Effect": {
@@ -201,7 +201,7 @@
         "PreReq": "",
         "Locks": "15",
         "Price": {
-            "Standart": 0,
+            "Standard": 0,
             "Premium": 120
         },
         "Effect": {
@@ -216,7 +216,7 @@
         "PreReq": "",
         "Locks": "14",
         "Price": {
-            "Standart": 0,
+            "Standard": 0,
             "Premium": 300
         },
         "Effect": {
