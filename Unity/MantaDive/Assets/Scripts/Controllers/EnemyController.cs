@@ -110,8 +110,4 @@ public class EnemyController : MonoBehaviour
         _speedModifier = _speedIncreaseFactor;
     }
 
-    private void RealignEnemy()
-    {
-
-    }
 }
