@@ -10,14 +10,6 @@ public class PlayerController : MonoBehaviour
     private InputActionAsset inputActionAsset;
     private InputAction joystick;
 
-    //Player stats for the run
-    [SerializeField]
-    private float stamina;
-    [SerializeField]
-    private float speed;
-    [SerializeField]
-    private float magnetStrength;
-
     //Movement
     private Vector3 joystickValue;
     private bool isMoving = false;
@@ -26,16 +18,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float speedModifier = 0.1f;
     private BoundriesController boundriesController;
-    private float staminaLossSpeed = 0.5f;
 
     [SerializeField]
     LevelController levelController;
 
-    private void Start()
-    {
-        LoadPlayerStats();
-        StartCoroutine(ReduceStamina());
-    }
     private void OnEnable()
     {
         joystick = inputActionAsset.FindAction("Player/Move");
@@ -85,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyJoystickMovement()
     {
-        Vector3 updatedPosition = speed * joystickValue * Time.deltaTime * speedModifier;
+        Vector3 updatedPosition = PlayerStatsManager.GetPlayerCurrentSpeed() * joystickValue * Time.deltaTime * speedModifier;
         transform.position += updatedPosition;
         float boundryX = boundriesController.playerBoundries.x / 2;
         float boundryY = boundriesController.playerBoundries.y / 2;
@@ -105,87 +91,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void LoadPlayerStats()
-    {
-        //stamina = PlayerStatsManager.GetPlayerMaxStamina();
-        //speed = PlayerStatsManager.GetPlayerBaseSpeed();
-        //magnetStrength = PlayerStatsManager.GetPlayerMagnetStrength();
-        stamina = 100;
-        speed = 2;
-        magnetStrength = 5;
-    }
-
-    private IEnumerator ReduceStamina()
-    {
-        Debug.Log("Reducing stamina");
-        yield return new WaitUntil(() => LevelController.isRunOngoing);
-        while (LevelController.isRunOngoing)
-        {
-            yield return new WaitUntil(() => isPlayerControllable);
-            yield return new WaitForSeconds(staminaLossSpeed);
-            stamina -= 1;
-            string currentStaminaText = levelController.StaminaText.text.Split(' ')[0];
-            currentStaminaText += " " + stamina.ToString();
-            levelController.StaminaText.text = currentStaminaText;
-            if (stamina <= 0)
-            {
-                LevelController.isRunOngoing = false;
-                yield break;
-            }
-        }
-    }
-
-    public void UpdateCurrentStaminaByValue(int value) 
-    {
-        stamina += value;
-        string currentStaminaText = levelController.StaminaText.text.Split(' ')[0];
-        currentStaminaText += " " + stamina.ToString();
-        levelController.StaminaText.text = currentStaminaText;
-    }
-
     public void UpdateMagnetStrengthTemp(float strength, float time)
     {
-        StartCoroutine(TempUpdate(strength,0,time));
+        StartCoroutine(PlayerStatsManager.TempUpdateMagnet(strength, time));
 
     }
 
     public void UpdatePlayerSpeedTemp(float speed, float time)
     {
-        StartCoroutine(TempUpdate(0,speed,time));
+        StartCoroutine(PlayerStatsManager.TempUpdateSpeed(speed, time));
 
-    }
-
-    private IEnumerator TempUpdate(float magnetUpdate, float speedUpdate, float time)
-    {
-        int counter = 0;
-        string currentMagnetText;
-        if (magnetUpdate > 0)
-        {
-            currentMagnetText = levelController.MagnetText.text.Split(' ')[0];
-            currentMagnetText += " ON " + time.ToString();
-            levelController.MagnetText.text = currentMagnetText;
-        }
-        magnetStrength += magnetUpdate;
-        speed += speedUpdate;
-
-        while(time >= counter) { 
-            if(magnetUpdate > 0)
-            {
-                string[] words = levelController.MagnetText.text.Split(' ');
-                words[words.Length-1] = (time-counter).ToString();
-                levelController.MagnetText.text = string.Join(" ", words);
-            }
-            counter++;
-            yield return new WaitForSeconds(1);
-        }
-        magnetStrength -= magnetUpdate;
-        speed -= speedUpdate;
-        if (magnetUpdate > 0)
-        {
-            currentMagnetText = levelController.MagnetText.text.Split(' ')[0];
-            currentMagnetText += " OFF";
-            levelController.MagnetText.text = currentMagnetText;
-        }
     }
 
 }

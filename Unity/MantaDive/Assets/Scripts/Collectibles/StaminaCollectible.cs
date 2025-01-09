@@ -10,7 +10,7 @@ public class StaminaCollectible : MonoBehaviour, ICollectible
     public void FireEvent()
     {
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        playerController.UpdateCurrentStaminaByValue(staminaValue);
+        PlayerStatsManager.ChangePlayerCurrentStaminaByAmount(staminaValue);
         isDone = true;
     }
 

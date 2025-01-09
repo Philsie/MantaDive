@@ -1,7 +1,8 @@
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-
+using System;
+using System.Collections;
 public class PlayerStatsManager : MonoBehaviour
 {
     private static PlayerStatsManager Instance { get; set; }
@@ -91,7 +92,11 @@ public class PlayerStatsManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Failed to fetch user data.");
+            Debug.LogError("Failed to fetch user data. Setting dummy values");
+
+            //Dummy valuess
+            playerBaseSpeed = 5;
+            playerCurrentSpeed = 5;
         }
     }
 
@@ -176,6 +181,89 @@ public class PlayerStatsManager : MonoBehaviour
     {
         Instance = PlayerStatsManager.GetInstance();
         return Instance.playerMagnetStrength = value;
+    }
+
+    public static float ChangePlayerMagnetStrengthByAmount(float changeValue)
+    {
+        Instance = PlayerStatsManager.GetInstance();
+        return Instance.playerMagnetStrength = Instance.playerMagnetStrength + changeValue;
+    }
+
+    public static IEnumerator TempUpdateSpeed(float speedUpdate, float time)
+    {
+
+
+        ChangePlayerCurrentSpeedByAmount(speedUpdate);
+        yield return new WaitForSeconds(time);
+        ChangePlayerCurrentSpeedByAmount(-speedUpdate);
+
+        /*
+        int counter = 0;
+        string currentMagnetText;
+
+        if (magnetUpdate > 0)
+        {
+            currentMagnetText = levelController.MagnetText.text.Split(' ')[0];
+            currentMagnetText += " ON " + time.ToString();
+            levelController.MagnetText.text = currentMagnetText;
+        }
+
+        while (time >= counter)
+        {
+            if (magnetUpdate > 0)
+            {
+                string[] words = levelController.MagnetText.text.Split(' ');
+                words[words.Length - 1] = (time - counter).ToString();
+                levelController.MagnetText.text = string.Join(" ", words);
+            }
+            counter++;
+            yield return new WaitForSeconds(1);
+        }
+ 
+        if (magnetUpdate > 0)
+        {
+            currentMagnetText = levelController.MagnetText.text.Split(' ')[0];
+            currentMagnetText += " OFF";
+            levelController.MagnetText.text = currentMagnetText;
+        }
+        */
+    }
+
+    public static IEnumerator TempUpdateMagnet(float magnetUpdate, float time)
+    {
+        ChangePlayerMagnetStrengthByAmount(magnetUpdate);
+        yield return new WaitForSeconds(time);
+        ChangePlayerMagnetStrengthByAmount(-magnetUpdate);
+
+        /*
+        int counter = 0;
+        string currentMagnetText;
+        if (magnetUpdate > 0)
+        {
+            currentMagnetText = levelController.MagnetText.text.Split(' ')[0];
+            currentMagnetText += " ON " + time.ToString();
+            levelController.MagnetText.text = currentMagnetText;
+        }
+
+        while (time >= counter)
+        {
+            if (magnetUpdate > 0)
+            {
+                string[] words = levelController.MagnetText.text.Split(' ');
+                words[words.Length - 1] = (time - counter).ToString();
+                levelController.MagnetText.text = string.Join(" ", words);
+            }
+            counter++;
+            yield return new WaitForSeconds(1);
+        }
+
+        if (magnetUpdate > 0)
+        {
+            currentMagnetText = levelController.MagnetText.text.Split(' ')[0];
+            currentMagnetText += " OFF";
+            levelController.MagnetText.text = currentMagnetText;
+        }
+        */
     }
 
 }

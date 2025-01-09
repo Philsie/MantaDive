@@ -15,21 +15,7 @@ public class LevelController : MonoBehaviour
     private Vector2 _playAreaDimensions;
     [SerializeField]
     private float _boundryModifier = 1.7f;
-    public static bool isRunOngoing = false;
-    private bool isPaused;
 
-    [SerializeField]
-    private TextMeshProUGUI currencyText;
-    public TextMeshProUGUI CurrencyText => currencyText;
-    [SerializeField]
-    private TextMeshProUGUI premiumCurrencyText;
-    public TextMeshProUGUI PremiumCurrencyText => premiumCurrencyText;
-    [SerializeField]
-    private TextMeshProUGUI staminaText;
-    public TextMeshProUGUI StaminaText => staminaText;
-    [SerializeField]
-    private TextMeshProUGUI magnetText;
-    public TextMeshProUGUI MagnetText => magnetText;
 
     void Start()
     {
@@ -37,7 +23,6 @@ public class LevelController : MonoBehaviour
         _boundriesController = FindFirstObjectByType<BoundriesController>()
             .GetComponent<BoundriesController>();
         _playAreaDimensions = _boundriesController.playerBoundries;
-        isRunOngoing = true;
     }
     void Update()
     {
@@ -51,22 +36,12 @@ public class LevelController : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
-        if (!isRunOngoing)
+        if (!RunManager.IsRunOngoing())
         {
             Debug.Log("Game ended");
         }
     }
 
-    public void PauseGame()
-    {
-        Time.timeScale = 0;
-        isPaused = true;
-        Debug.Log("Game Paused");
-    }
-    public void UnpauseGame()
-    {
-        Time.timeScale = 1;
-        isPaused = false;
-        Debug.Log("Game Unpaused");
-    }
+    //TODO: Spawn random items and enemies
+
 }
