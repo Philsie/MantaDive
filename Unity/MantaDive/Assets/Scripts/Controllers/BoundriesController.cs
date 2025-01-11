@@ -3,16 +3,16 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class BoundriesController : MonoBehaviour
 {
-    public Camera camera;
+    public Camera mainCamera;
     public Vector2 playerBoundries { get; private set; }
 
     private void Awake()
     {
-        if (camera == null)
+        if (mainCamera == null)
         {
-            camera = Camera.main;
+            mainCamera = Camera.main;
         }
-        playerBoundries = CalculatePlayerBoundries(camera, 0);
+        playerBoundries = CalculatePlayerBoundries(mainCamera, 0);
     }
 
     private Vector2 CalculatePlayerBoundries(Camera camera, float depth)
@@ -25,7 +25,7 @@ public class BoundriesController : MonoBehaviour
     }
     public Vector2 GetPlayerBoundries()
     {
-        return CalculatePlayerBoundries(camera, 0);
+        return CalculatePlayerBoundries(mainCamera, 0);
     }
 }
     

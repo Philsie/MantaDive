@@ -23,11 +23,10 @@ public class RunController : MonoBehaviour
 
     private IEnumerator ReduceStamina()
     {
-        Debug.Log("Reducing stamina");
         yield return new WaitUntil(() => RunManager.IsRunOngoing());
         while (RunManager.IsRunOngoing())
         {
-            yield return new WaitUntil(() => RunManager.IsGamePaused());
+            yield return new WaitUntil(() => !RunManager.IsGamePaused());
             yield return new WaitForSeconds(staminaLossSpeed);
             PlayerStatsManager.ChangePlayerCurrentStaminaByAmount(-1);
 
