@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class CollectiblesManager : MonoBehaviour
     private float primaryCurrency = 0f;
     private float premiumCurrency = 0f;
 
+    public event Action<float> OnCurrencyChanged;
+    public event Action<float> OnPremiumCurrencyChanged;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -20,7 +23,7 @@ public class CollectiblesManager : MonoBehaviour
         }
     }
 
-    private static CollectiblesManager GetInstance()
+    public static CollectiblesManager GetInstance()
     {
         if (Instance == null)
         {
@@ -35,10 +38,17 @@ public class CollectiblesManager : MonoBehaviour
 
     private async void InitializeCollectibles()
     {
-        var userID = SessionManager.GetUserID();
-        var currencies = await DatabaseCallUtility.FetchUserCurrencies(userID);
-        primaryCurrency = currencies.Currency.Standard;
-        premiumCurrency = currencies.Currency.Premium;
+        try
+        {
+            var userID = SessionManager.GetUserID();
+            var currencies = await DatabaseCallUtility.FetchUserCurrencies(userID);
+            primaryCurrency = currencies.Currency.Standard;
+            premiumCurrency = currencies.Currency.Premium;
+        }
+        catch(Exception e) {
+            primaryCurrency = 0;
+            premiumCurrency = 0;
+        }
     }
 
     public static float GetPrimaryCurrency()
@@ -50,13 +60,16 @@ public class CollectiblesManager : MonoBehaviour
     public static float SetPrimaryCurrency(int value)
     {
         Instance = CollectiblesManager.GetInstance();
+        Instance.OnCurrencyChanged?.Invoke(value);
         return Instance.primaryCurrency = value;
     }
 
     public static float ChangePrimaryCurrencyByAmount(int changeValue)
     {
         Instance = CollectiblesManager.GetInstance();
-        return Instance.primaryCurrency = Instance.primaryCurrency + changeValue;
+        Instance.primaryCurrency = Instance.primaryCurrency + changeValue;
+        Instance.OnCurrencyChanged?.Invoke(Instance.primaryCurrency);
+        return Instance.primaryCurrency;
     }
 
     public static float GetPremiumCurrency()
@@ -68,13 +81,16 @@ public class CollectiblesManager : MonoBehaviour
     public static float SetPremiumCurrency(int value)
     {
         Instance = CollectiblesManager.GetInstance();
+        Instance.OnPremiumCurrencyChanged?.Invoke(value);
         return Instance.premiumCurrency = value;
     }
 
     public static float ChangePremiumCurrencyByAmount(int changeValue)
     {
         Instance = CollectiblesManager.GetInstance();
-        return Instance.premiumCurrency = Instance.premiumCurrency + changeValue;
+        Instance.premiumCurrency = Instance.premiumCurrency + changeValue;
+        Instance.OnPremiumCurrencyChanged?.Invoke(Instance.premiumCurrency);
+        return Instance.premiumCurrency;
     }
 
 }

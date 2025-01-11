@@ -17,6 +17,12 @@ public class PlayerStatsManager : MonoBehaviour
 
     private float playerMagnetStrength;
 
+    // Events for stat changes
+    public event Action<float> OnStaminaChanged;
+    public event Action<float> OnSpeedChanged;
+    public event Action<float> OnMagnetChanged;
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -29,7 +35,7 @@ public class PlayerStatsManager : MonoBehaviour
         }
     }
 
-    private static PlayerStatsManager GetInstance()
+    public static PlayerStatsManager GetInstance()
     {
         if (Instance == null)
         {
@@ -95,9 +101,14 @@ public class PlayerStatsManager : MonoBehaviour
             Debug.LogError("Failed to fetch user data. Setting dummy values");
 
             //Dummy valuess
-            playerBaseSpeed = 5;
-            playerCurrentSpeed = 5;
+            playerCurrentStamina = 100;
+            playerBaseSpeed = 3;
+            playerCurrentSpeed = 3;
+            playerMagnetStrength = 5;
         }
+        OnStaminaChanged?.Invoke(playerCurrentStamina);
+        OnSpeedChanged?.Invoke(playerCurrentSpeed);
+        OnMagnetChanged?.Invoke(playerMagnetStrength);
     }
 
     public static float GetPlayerCurrentStamina()
@@ -108,13 +119,16 @@ public class PlayerStatsManager : MonoBehaviour
     public static float SetPlayerCurrentStamina(float value)
     {
         Instance = PlayerStatsManager.GetInstance();
+        Instance.OnStaminaChanged?.Invoke(value);
         return Instance.playerCurrentStamina = value;
     }
 
     public static float ChangePlayerCurrentStaminaByAmount(float changeValue)
     {
         Instance = PlayerStatsManager.GetInstance();
-        return Instance.playerCurrentStamina = Instance.playerCurrentStamina + changeValue;
+        Instance.playerCurrentStamina = Instance.playerCurrentStamina + changeValue;
+        Instance.OnStaminaChanged?.Invoke(Instance.playerCurrentStamina);
+        return Instance.playerCurrentStamina;
     }
 
     public static float GetPlayerMaxStamina()
