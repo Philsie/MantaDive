@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5062164992850603128}
   - component: {fileID: 2858407335013891173}
   - component: {fileID: 8006337792906641939}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StaminaCollectible
   m_TagString: Collectible
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 3508633773959976244}
   - component: {fileID: 5781190890545705446}
   - component: {fileID: 1757857067116618941}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
