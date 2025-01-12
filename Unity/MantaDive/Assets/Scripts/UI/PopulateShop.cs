@@ -63,17 +63,12 @@ public class PopulateShop : MonoBehaviour
             RawImage rawImage = element.transform.Find("RawImage").GetComponent<RawImage>();
 
             if (rawImage != null){
-                Debug.Log("####");
-                // Assuming the ShopItem has a Texture2D property called "Image"
-                Debug.Log($"Shop_Items/{item.Sprite}");
 
                 string resourcePath = $"Assets/Ressources/Shop_Items/{item.Sprite}";
-                Debug.Log($"Attempting to load texture at: {resourcePath}");
 
                 Texture2D texture = LoadTextureFromPath(resourcePath);
                 if (texture != null)
                 {
-                    Debug.Log($"Successfully loaded texture: {resourcePath}");
                     rawImage.texture = texture;
                 }
                 else
