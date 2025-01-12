@@ -64,14 +64,14 @@ public class LevelController : MonoBehaviour
         int nextNumber = RunManager.GetNextRandomNumber();
         switch (nextNumber)
         {
-            case int i when i < 350:
+            case int i when i < 520:
                 int enemyIndex = Random.Range(0, enemyPrefabs.Length - 1);
                 Spawn(enemyPrefabs[enemyIndex]);
                 break;
-            case int i when i < 700:
+            case int i when i < 800:
                 Spawn(currencyPrefab);
                 break;
-            case int i when i < 800:
+            case int i when i < 810:
                 Spawn(premiumPrefab);
                 break;
             case int i when i < 1000:

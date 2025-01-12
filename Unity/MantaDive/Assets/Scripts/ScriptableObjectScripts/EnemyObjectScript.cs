@@ -7,6 +7,6 @@ public class EnemyObjectScript : ScriptableObject
     public Texture2D material;
     public bool followsPlayer;
     public float speed;
-    public float hitPoints;
+    public int hitPoints;
     public float damage;
 }

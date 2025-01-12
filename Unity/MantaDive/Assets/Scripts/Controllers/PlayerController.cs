@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private InputActionAsset inputActionAsset;
     private InputAction joystick;
+    [SerializeField]
+    private GameObject proyectile;
 
     //Movement
     private Vector3 joystickValue;
@@ -21,6 +23,14 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     LevelController levelController;
+    private bool canShoot = true;
+
+    public void SpawnProyectileAtPosition(Transform transform)
+    {
+        if (!canShoot) return;
+        StartCoroutine(ShootingCooldown());
+        Instantiate(proyectile, transform.position, Quaternion.identity);
+    }
 
     private void OnEnable()
     {
@@ -101,6 +111,13 @@ public class PlayerController : MonoBehaviour
     {
         StartCoroutine(PlayerStatsManager.TempUpdateSpeed(speed, time));
 
+    }
+
+    private IEnumerator ShootingCooldown()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(1);
+        canShoot = true;
     }
 
 }
