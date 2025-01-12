@@ -32,16 +32,10 @@ public class PopulateShop : MonoBehaviour
             script.Id = item.ID;
 
             // Find the Title GameObject and set its text
-            TMPro.TMP_Text titleText = element.transform.Find("Title").GetComponent<TMPro.TMP_Text>();
+            TMPro.TMP_Text titleText = element.transform.Find("ShopElementNormal/Title").GetComponent<TMPro.TMP_Text>();
             if (titleText != null)
             {
                 string titleWithPrice = item.Name;
-
-                /*
-                if (item.Price.Premium != 0){
-                    titleWithPrice += $"\n(Prem.: {item.Price.Premium})";
-                }*/
-
 
                 if (item.Price.Standard != 0){
                     titleWithPrice += $"\n(Std.: {item.Price.Standard})";
@@ -55,13 +49,13 @@ public class PopulateShop : MonoBehaviour
                 titleText.text = titleWithPrice;
             }
 
-            TMPro.TMP_Text descriptionText = element.transform.Find("Description").GetComponent<TMPro.TMP_Text>();
+            TMPro.TMP_Text descriptionText = element.transform.Find("ShopElementNormal/Description").GetComponent<TMPro.TMP_Text>();
             if (descriptionText != null)
             {
                 descriptionText.text = item.Description;
             }
 
-            RawImage rawImage = element.transform.Find("RawImage").GetComponent<RawImage>();
+            RawImage rawImage = element.transform.Find("ShopElementNormal/RawImage").GetComponent<RawImage>();
 
             if (rawImage != null){
 
@@ -78,6 +72,11 @@ public class PopulateShop : MonoBehaviour
                 }
             }
 
+            TMPro.TMP_Text ConfirmText = element.transform.Find("ShopElementConfirmPopup/ConfirmText").GetComponent<TMPro.TMP_Text>();
+            if (ConfirmText != null)
+            {
+                ConfirmText.text = $"Do you really want to buy {item.Name}?";
+            }
         }
     }
 
