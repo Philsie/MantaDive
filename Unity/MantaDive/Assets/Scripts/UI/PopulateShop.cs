@@ -28,11 +28,30 @@ public class PopulateShop : MonoBehaviour
             // Instantiate the shop element prefab
             GameObject element = Instantiate(shopElement, transform);
 
+            ShopElement script = element.GetComponent<ShopElement>();
+            script.Id = item.ID;
+
             // Find the Title GameObject and set its text
             TMPro.TMP_Text titleText = element.transform.Find("Title").GetComponent<TMPro.TMP_Text>();
             if (titleText != null)
             {
-                titleText.text = item.Name;
+                string titleWithPrice = item.Name;
+
+                if (item.Price.Premium != 0){
+                    titleWithPrice += $"\n(Prem.: {item.Price.Premium})";
+                }
+
+                /*
+                if (item.Price.Standard != 0){
+                    titleWithPrice += $"(Std.: {item.Price.Standard})";
+                } else if (item.Price.Premium != 0){
+                    titleWithPrice += $"(Prem.: {item.Price.Premium})";
+                } else {
+                    Debug.LogError($"No Price set for Item with ID-{item.ID}");
+                }
+                */
+
+                titleText.text = titleWithPrice;
             }
 
             TMPro.TMP_Text descriptionText = element.transform.Find("Description").GetComponent<TMPro.TMP_Text>();
