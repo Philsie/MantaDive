@@ -28,7 +28,9 @@ public class LeaderboardView : MonoBehaviour
     }
     private void Populate(List<UserDepth> spots)
     {
-        if (spots == null || spots.Count == 0) return; 
+        if (spots == null || spots.Count == 0)
+            spots = new List<UserDepth>();
+        Debug.Log("Populating");
         for (int i = 0; i < spots.Count; i++)
         {
             GameObject spot = (GameObject)Instantiate(leaderboardElement, transform);
@@ -61,7 +63,8 @@ public class LeaderboardView : MonoBehaviour
     {
         EmptyTable();
         CallForSpots(isDaily);
-        yield return new WaitForSeconds(2);
+        Debug.Log("Starting Populating");
+        yield return new WaitForSecondsRealtime(2);
         Populate(isDaily ? dailySpots : overallSpots);
         yield break;
     }
