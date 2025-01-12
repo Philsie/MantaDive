@@ -37,19 +37,20 @@ public class PopulateShop : MonoBehaviour
             {
                 string titleWithPrice = item.Name;
 
+                /*
                 if (item.Price.Premium != 0){
                     titleWithPrice += $"\n(Prem.: {item.Price.Premium})";
-                }
+                }*/
 
-                /*
+
                 if (item.Price.Standard != 0){
-                    titleWithPrice += $"(Std.: {item.Price.Standard})";
+                    titleWithPrice += $"\n(Std.: {item.Price.Standard})";
                 } else if (item.Price.Premium != 0){
-                    titleWithPrice += $"(Prem.: {item.Price.Premium})";
+                    titleWithPrice += $"\n(Prem.: {item.Price.Premium})";
                 } else {
                     Debug.LogError($"No Price set for Item with ID-{item.ID}");
                 }
-                */
+
 
                 titleText.text = titleWithPrice;
             }

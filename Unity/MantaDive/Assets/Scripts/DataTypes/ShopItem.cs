@@ -15,7 +15,7 @@ public class ShopItem
     public class PriceValues
     {
         public int Premium { get; set; }
-        public int Standart { get; set; }
+        public int Standard { get; set; }
     }
 
 }
