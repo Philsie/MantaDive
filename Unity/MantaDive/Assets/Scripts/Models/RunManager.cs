@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 
 public class RunManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class RunManager : MonoBehaviour
     private bool isRunOngoing = false;
     private bool isGamePaused = false;
 
+    public event Action OnRunStateChange;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -25,7 +28,7 @@ public class RunManager : MonoBehaviour
         }
     }
 
-    private static RunManager GetInstance()
+    public static RunManager GetInstance()
     {
         if (Instance == null)
         {
@@ -45,7 +48,7 @@ public class RunManager : MonoBehaviour
 
     public static int GetNextRandomNumber()
     {
-        return GetInstance().randomGenerator.Next();
+        return GetInstance().randomGenerator.Next(1000);
     }
 
     public static bool IsRunOngoing()
@@ -56,6 +59,7 @@ public class RunManager : MonoBehaviour
     public static void SetIsRunOngoing(bool isRunOngoing)
     {
         GetInstance().isRunOngoing = isRunOngoing;
+        GetInstance().OnRunStateChange?.Invoke();
     }
 
     public static bool IsGamePaused()
@@ -92,4 +96,5 @@ public class RunManager : MonoBehaviour
     {
         GetInstance().currentDepth = GetInstance().currentDepth + changeValue;
     }
+
 }

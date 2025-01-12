@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,20 +15,26 @@ public class PlayerStatsView : MonoBehaviour
     private TMP_Text magnetStrengthText;
     [SerializeField]
     private TMP_Text speedText;
+    [SerializeField]
+    private TMP_Text depthText;
 
     private void OnEnable()
     {
         PlayerStatsManager.GetInstance().OnStaminaChanged += UpdateStaminaText;
         PlayerStatsManager.GetInstance().OnSpeedChanged += UpdateSpeedText;
         PlayerStatsManager.GetInstance().OnMagnetChanged += UpdateMagnetText;
+        PlayerStatsManager.GetInstance().OnDepthChanged += UpdateDepthText;
         CollectiblesManager.GetInstance().OnCurrencyChanged += UpdateCurrencyText;
         CollectiblesManager.GetInstance().OnPremiumCurrencyChanged += UpdatePremiumCurrencyText;
     }
+
+
     private void OnDisable()
     {
         PlayerStatsManager.GetInstance().OnStaminaChanged -= UpdateStaminaText;
         PlayerStatsManager.GetInstance().OnSpeedChanged -= UpdateSpeedText;
         PlayerStatsManager.GetInstance().OnMagnetChanged -= UpdateMagnetText;
+        PlayerStatsManager.GetInstance().OnDepthChanged -= UpdateDepthText;
         CollectiblesManager.GetInstance().OnCurrencyChanged -= UpdateCurrencyText;
         CollectiblesManager.GetInstance().OnPremiumCurrencyChanged -= UpdatePremiumCurrencyText;
     }
@@ -50,5 +57,9 @@ public class PlayerStatsView : MonoBehaviour
     private void UpdatePremiumCurrencyText(float premium)
     {
         premiumCurrencyText.text = $"$${premium}";
+    }
+    private void UpdateDepthText(float depth)
+    {
+        depthText.text = $"D:{depth}";
     }
 }

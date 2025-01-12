@@ -16,11 +16,13 @@ public class PlayerStatsManager : MonoBehaviour
     private float playerCurrentSpeed;
 
     private float playerMagnetStrength;
+    private float playerDepth = 0;
 
     // Events for stat changes
     public event Action<float> OnStaminaChanged;
     public event Action<float> OnSpeedChanged;
     public event Action<float> OnMagnetChanged;
+    public event Action<float> OnDepthChanged;
 
 
     private void Awake()
@@ -194,53 +196,40 @@ public class PlayerStatsManager : MonoBehaviour
     public static float SetPlayerMagnetStrength(float value)
     {
         Instance = PlayerStatsManager.GetInstance();
+        Instance.OnMagnetChanged?.Invoke(value);
         return Instance.playerMagnetStrength = value;
     }
 
     public static float ChangePlayerMagnetStrengthByAmount(float changeValue)
     {
         Instance = PlayerStatsManager.GetInstance();
-        return Instance.playerMagnetStrength = Instance.playerMagnetStrength + changeValue;
+        Instance.playerMagnetStrength = Instance.playerMagnetStrength + changeValue;
+        Instance.OnMagnetChanged?.Invoke(Instance.playerMagnetStrength);
+        return Instance.playerMagnetStrength;
+    }
+
+    public static float GetPlayerDepth()
+    {
+        return Instance.playerDepth;
+    }
+    public static float SetPlayerDepth(float value)
+    {
+        Instance.playerDepth = value;
+        Instance.OnDepthChanged?.Invoke(value);
+        return Instance.playerDepth;
+    }
+    public static float ChangePlayerDepthByValue(float value)
+    {
+        Instance.playerDepth += value;
+        Instance.OnDepthChanged?.Invoke(Instance.playerDepth);
+        return Instance.playerDepth;
     }
 
     public static IEnumerator TempUpdateSpeed(float speedUpdate, float time)
     {
-
-
         ChangePlayerCurrentSpeedByAmount(speedUpdate);
         yield return new WaitForSeconds(time);
         ChangePlayerCurrentSpeedByAmount(-speedUpdate);
-
-        /*
-        int counter = 0;
-        string currentMagnetText;
-
-        if (magnetUpdate > 0)
-        {
-            currentMagnetText = levelController.MagnetText.text.Split(' ')[0];
-            currentMagnetText += " ON " + time.ToString();
-            levelController.MagnetText.text = currentMagnetText;
-        }
-
-        while (time >= counter)
-        {
-            if (magnetUpdate > 0)
-            {
-                string[] words = levelController.MagnetText.text.Split(' ');
-                words[words.Length - 1] = (time - counter).ToString();
-                levelController.MagnetText.text = string.Join(" ", words);
-            }
-            counter++;
-            yield return new WaitForSeconds(1);
-        }
- 
-        if (magnetUpdate > 0)
-        {
-            currentMagnetText = levelController.MagnetText.text.Split(' ')[0];
-            currentMagnetText += " OFF";
-            levelController.MagnetText.text = currentMagnetText;
-        }
-        */
     }
 
     public static IEnumerator TempUpdateMagnet(float magnetUpdate, float time)
@@ -248,36 +237,7 @@ public class PlayerStatsManager : MonoBehaviour
         ChangePlayerMagnetStrengthByAmount(magnetUpdate);
         yield return new WaitForSeconds(time);
         ChangePlayerMagnetStrengthByAmount(-magnetUpdate);
-
-        /*
-        int counter = 0;
-        string currentMagnetText;
-        if (magnetUpdate > 0)
-        {
-            currentMagnetText = levelController.MagnetText.text.Split(' ')[0];
-            currentMagnetText += " ON " + time.ToString();
-            levelController.MagnetText.text = currentMagnetText;
-        }
-
-        while (time >= counter)
-        {
-            if (magnetUpdate > 0)
-            {
-                string[] words = levelController.MagnetText.text.Split(' ');
-                words[words.Length - 1] = (time - counter).ToString();
-                levelController.MagnetText.text = string.Join(" ", words);
-            }
-            counter++;
-            yield return new WaitForSeconds(1);
-        }
-
-        if (magnetUpdate > 0)
-        {
-            currentMagnetText = levelController.MagnetText.text.Split(' ')[0];
-            currentMagnetText += " OFF";
-            levelController.MagnetText.text = currentMagnetText;
-        }
-        */
     }
+
 
 }

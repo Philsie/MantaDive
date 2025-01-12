@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3500337473506254981}
   - component: {fileID: 5062164992850603128}
   - component: {fileID: 2858407335013891173}
+  - component: {fileID: 8006337792906641939}
   m_Layer: 0
   m_Name: StaminaCollectible
   m_TagString: Collectible
@@ -107,6 +108,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8006337792906641939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5672355385226180479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be1bd38946f94a46ae02306b07d2f47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staminaValue: 10
 --- !u!1 &7438554086489180660
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +185,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 876f297fd98a5b54da8e9c67acd977c1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
