@@ -56,7 +56,7 @@ public class CollectiblesManager : MonoBehaviour
         Instance = CollectiblesManager.GetInstance();
         return Instance.primaryCurrency;
     }
-
+        
     public static float SetPrimaryCurrency(int value)
     {
         Instance = CollectiblesManager.GetInstance();

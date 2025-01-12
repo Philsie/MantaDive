@@ -180,11 +180,13 @@ public class DatabaseCallUtility : MonoBehaviour
     {
 
         string url = $"{baseUrl}{dailyLeaderboardEndpoint}{numOfSpots}";
+        Debug.Log($"URL: {url}");
 
         try
         {
             string jsonResponse = await client.GetStringAsync(url);
-            List<UserDepth> userDepths = JsonConvert.DeserializeObject<List<UserDepth>>(jsonResponse);
+            string updatedJson = ReplaceJsonKey(jsonResponse, "DailyDepth", "MaxDepth");
+            List<UserDepth> userDepths = JsonConvert.DeserializeObject<List<UserDepth>>(updatedJson);
             return userDepths;
         }
         catch (HttpRequestException e)
@@ -234,5 +236,19 @@ public class DatabaseCallUtility : MonoBehaviour
     {
         string url = $"{baseUrl}{unlockShopItemEndpoint}{userId}/{shopItemId}";
         return await SendPatchRequest(url);
+    }
+
+    private static string ReplaceJsonKey(string json, string oldKey, string newKey)
+    {
+        var objects = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(json);
+        foreach (var obj in objects)
+        {
+            if (obj.ContainsKey(oldKey))
+            {
+                obj[newKey] = obj[oldKey];
+                obj.Remove(oldKey);
+            }
+        }
+        return JsonConvert.SerializeObject(objects, Formatting.Indented);
     }
 }
