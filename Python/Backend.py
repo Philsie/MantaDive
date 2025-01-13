@@ -206,33 +206,41 @@ def getSeed(date):
     if seed:
         return jsonify(seed.__export__())
     else:
-        return jsonify(f"error: Seed for date-{UUID} does not exist")
+        return jsonify(f"error: Seed for date-{date} does not exist")
 
 #@swag_from("./swagger/newSeed.yml")
 @app.route("/api/newSeed", methods=["GET","PUT"])
 def newSeed():
     date = DateTime().parts()
+
+    latestDailySeed = session.query(Tab.Seed).order_by(Tab.Seed.Date["Year"].desc(),Tab.Seed.Date["Month"].desc(),Tab.Seed.Date["Day"].desc()).first()
+
+
+    print("---------")
+    print(latestDailySeed.Date)
+    print(date)
+    print("---------")
+    if latestDailySeed.Date["Year"] == date[0] and latestDailySeed.Date["Month"] == date[1] and latestDailySeed.Date["Day"] == date[2]:
+        return jsonify(f"Seed for date-{DateTime().Date()} already exists")
+
     seed_value = randint(0,65_536)
 
     while session.query(Tab.Seed).filter(Tab.Seed.Value == seed_value).first():
         seed_value = randint(0,65_536)
 
-    try: 
-        newSeed = Tab.Seed(
-            Date = {
-                "Year": date[0],
-                "Month": date[1],
-                "Day": date[2]},
-            Value = seed_value
-            )
+    newSeed = Tab.Seed(
+        Date = {
+            "Year": date[0],
+            "Month": date[1],
+            "Day": date[2]},
+        Value = seed_value
+        )
 
-        Tab.attributes.flag_modified(newSeed, "Value")
-        session.add(newSeed)
+    Tab.attributes.flag_modified(newSeed, "Value")
+    session.add(newSeed)
 
-        session.commit()
-        session.refresh(newSeed)
-    except IntegrityError:
-        return jsonify(f"Seed for date-{DateTime().Date()} already exists")
+    session.commit()
+    session.refresh(newSeed)
     return jsonify(f"{date[0]}_{date[1]}_{date[2]}")
     
 @swag_from("./swagger/getAllShopItems.yml")
