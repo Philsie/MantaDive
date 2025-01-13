@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4133430292531211831}
   - component: {fileID: 6780678302998193668}
   - component: {fileID: 7801069939264283822}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 1ee7ef907994d2648a3af61d8aaa11c0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 1440200744795418902}
   - component: {fileID: 2262612857017891128}
   - component: {fileID: 2428678375994766140}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PremiumCoin
   m_TagString: Collectible
   m_Icon: {fileID: 0}

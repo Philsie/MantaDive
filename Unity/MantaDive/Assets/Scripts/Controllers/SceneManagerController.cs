@@ -29,4 +29,15 @@ public class SceneManagerController : MonoBehaviour
             SceneManager.UnloadSceneAsync(newSceneConfig.name);
         }
     }
+
+    public void StartWithDailyRun(SceneConfigScriptableObject newSceneConfig)
+    {
+        RunManager.SetIsDailyRun(true);
+        LoadScene(newSceneConfig);
+    }
+    public void StartWithNormalRun(SceneConfigScriptableObject newSceneConfig)
+    {
+        RunManager.SetIsDailyRun(false);
+        LoadScene(newSceneConfig);
+    }
 }

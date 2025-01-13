@@ -25,7 +25,6 @@ public class PrimaryCurrencyCollectible : MonoBehaviour, ICollectible
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger triggered");
         if (collision.gameObject.name.Equals("Player") && !isDone)
         {
             StartCoroutine(SelfDestroyWhenDone());

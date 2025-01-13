@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField]
-    private EnemyObjectScript _enemyObjectScript;
+    public EnemyObjectScript _enemyObjectScript;
     private GameObject _player;
     private bool _isPlayerFound = false;
     [SerializeField]
