@@ -48,10 +48,14 @@ public class RunController : MonoBehaviour
 
     private IEnumerator BeginRun()
     {
+        PlayerStatsManager.SetPlayerDepth(0);
         PlayerStatsManager.SetPlayerCurrentStamina(PlayerStatsManager.GetPlayerMaxStamina());
+        Debug.Log(PlayerStatsManager.GetPlayerMaxStamina());
+        PlayerStatsManager.ChangePlayerCurrentStaminaByAmount(RunManager.GetExtraStamina());
         yield return new WaitForSecondsRealtime(3);
         UnpauseGame();
         RunManager.SetIsRunOngoing(true);
+        RunManager.SetExtraStamina(0);
     }
 
     private void EndRun()
@@ -90,6 +94,9 @@ public class RunController : MonoBehaviour
                 await DatabaseCallUtility
                     .UpdateUserMaxDepth(userID, PlayerStatsManager.GetPlayerDepth());
         }
+        PlayerStatsManager.SetPlayerDepth(0);
+        PlayerStatsManager.SetPlayerCurrentStamina(PlayerStatsManager.GetPlayerMaxStamina());
+        RunManager.SetExtraStamina(0);
     }
     private IEnumerator ReduceStamina()
     {

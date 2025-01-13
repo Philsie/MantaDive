@@ -13,6 +13,7 @@ public class RunManager : MonoBehaviour
     private bool isDailyRun = false;
     private bool isRunOngoing = false;
     private bool isGamePaused = false;
+    private int extraStamina = 0;
 
     public event Action OnRunStateChange;
 
@@ -95,6 +96,21 @@ public class RunManager : MonoBehaviour
     public static void ChangeCurrentDepth(float changeValue)
     {
         GetInstance().currentDepth = GetInstance().currentDepth + changeValue;
+    }
+
+    public static float GetExtraStamina()
+    {
+        return GetInstance().extraStamina;
+    }
+
+    public static void SetExtraStamina(int stamina)
+    {
+        GetInstance().extraStamina = stamina;
+    }
+
+    public static void ChangeExtraStamina(int stamina)
+    {
+        GetInstance().extraStamina = GetInstance().extraStamina + stamina;
     }
 
 }
