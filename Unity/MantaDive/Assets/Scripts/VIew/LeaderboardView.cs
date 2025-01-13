@@ -1,7 +1,9 @@
+using Microsoft.Unity.VisualStudio.Editor;
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LeaderboardView : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class LeaderboardView : MonoBehaviour
     private List<UserDepth> dailySpots = new List<UserDepth>();
     private bool isDailyShown = false;
     private bool isOverallShown = false;
+    //Color disabledButton = ColorUtility.TryParseHtmlString("#3131317F", out Color disabledButton);
+    Color32 disabledButton = new Color32 (49,49,49,128);
+    Color32 enabledButton = new Color32 (189,227,255,128);
 
     public void PopulateOverall()
     {
@@ -18,13 +23,19 @@ public class LeaderboardView : MonoBehaviour
         StartCoroutine(WaitForSpots(false));
         isDailyShown = false;
         isOverallShown = true;
+        GameObject.Find("Daily").GetComponent<UnityEngine.UI.Image>().color =  enabledButton ;
+        GameObject.Find("Overall").GetComponent<UnityEngine.UI.Image>().color = disabledButton ;
+        GameObject.Find("Subtitle").GetComponent<TMPro.TMP_Text>().text = "Overall";
     }
-    public void PopulateDailyl()
+    public void PopulateDaily()
     {
         if (isDailyShown) return;
         StartCoroutine(WaitForSpots(true));
         isDailyShown = true;
         isOverallShown = false;
+        GameObject.Find("Overall").GetComponent<UnityEngine.UI.Image>().color = enabledButton ;
+        GameObject.Find("Daily").GetComponent<UnityEngine.UI.Image>().color = disabledButton ;
+        GameObject.Find("Subtitle").GetComponent<TMPro.TMP_Text>().text = "Daily";
     }
     private void Populate(List<UserDepth> spots)
     {
@@ -61,10 +72,10 @@ public class LeaderboardView : MonoBehaviour
 
     private IEnumerator WaitForSpots(bool isDaily)
     {
-        EmptyTable();
         CallForSpots(isDaily);
         Debug.Log("Starting Populating");
         yield return new WaitForSecondsRealtime(2);
+        EmptyTable();
         Populate(isDaily ? dailySpots : overallSpots);
         yield break;
     }

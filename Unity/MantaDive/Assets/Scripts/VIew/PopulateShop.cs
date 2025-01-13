@@ -72,6 +72,25 @@ public class PopulateShop : MonoBehaviour
                 }
             }
 
+            CurrencyResponse Currency = await DatabaseCallUtility.FetchUserCurrencies(SessionManager.GetUserID());
+            bool disabled = false;
+
+            if (item.Price.Premium > 0 && Currency.Currency.Premium < item.Price.Premium){
+                disabled = true;
+            }
+            else if (item.Price.Standard > 0 && Currency.Currency.Standard < item.Price.Standard){
+                disabled = true;
+            }
+
+            if (disabled == true){
+                Image normalPanel = element.transform.Find("ShopElementNormal").GetComponent<Image>();
+                ColorUtility.TryParseHtmlString("#3131317F", out Color disabledPanel);
+                normalPanel.color = disabledPanel;
+                descriptionText.color = Color.white;
+                titleText.color = Color.white;
+                script.disabledPopup = true;
+            }
+
             TMPro.TMP_Text ConfirmText = element.transform.Find("ShopElementConfirmPopup/ConfirmText").GetComponent<TMPro.TMP_Text>();
             if (ConfirmText != null)
             {
