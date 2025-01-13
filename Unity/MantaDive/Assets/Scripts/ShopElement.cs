@@ -4,13 +4,16 @@ using UnityEngine.SceneManagement;
 public class ShopElement : MonoBehaviour
 {
     public int Id;
+    public bool disabledPopup = false;
 
     public void openConfirmPopup()
     {
-        Transform confirmPopupTransform = transform.Find("ShopElementConfirmPopup");
-        Transform ShopElementNormalTransform = transform.Find("ShopElementNormal");
-        confirmPopupTransform.gameObject.SetActive(true);
-        ShopElementNormalTransform.gameObject.SetActive(false);
+        if(disabledPopup == false){
+            Transform confirmPopupTransform = transform.Find("ShopElementConfirmPopup");
+            Transform ShopElementNormalTransform = transform.Find("ShopElementNormal");
+            confirmPopupTransform.gameObject.SetActive(true);
+            ShopElementNormalTransform.gameObject.SetActive(false);
+        }
     }
 
     public void closeConfirmPopup()
