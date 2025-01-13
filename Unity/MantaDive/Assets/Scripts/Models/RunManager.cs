@@ -14,6 +14,8 @@ public class RunManager : MonoBehaviour
     private bool isRunOngoing = false;
     private bool isGamePaused = false;
     private int extraStamina = 0;
+    private int extraMagnet = 0;
+    private int baseMagnet = 0;
 
     public event Action OnRunStateChange;
 
@@ -113,4 +115,22 @@ public class RunManager : MonoBehaviour
         GetInstance().extraStamina = GetInstance().extraStamina + stamina;
     }
 
+    public static float GetExtraMagnet()
+    {
+        return GetInstance().extraMagnet;
+    }
+    public static void SetExtraMagnet(int strength)
+    {
+        GetInstance().extraMagnet = strength;
+        Debug.Log(GetInstance().extraMagnet);
+    }
+    internal static void ChangeExtraMagnet(int strength)
+    {
+        GetInstance().extraMagnet = GetInstance().extraMagnet + strength;
+    }
+
+    public static float GetBaseMagnet()
+    {
+        return GetInstance().baseMagnet;
+    }
 }

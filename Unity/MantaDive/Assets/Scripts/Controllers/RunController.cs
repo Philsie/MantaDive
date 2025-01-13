@@ -5,7 +5,6 @@ using Unity.VisualScripting;
 
 public class RunController : MonoBehaviour
 {
-
     private float staminaLossSpeed = 0.5f;
     [SerializeField]
     private SceneManagerController sceneManager;
@@ -50,15 +49,17 @@ public class RunController : MonoBehaviour
     {
         PlayerStatsManager.SetPlayerDepth(0);
         PlayerStatsManager.SetPlayerCurrentStamina(PlayerStatsManager.GetPlayerMaxStamina());
-        Debug.Log(PlayerStatsManager.GetPlayerMaxStamina());
+        PlayerStatsManager.SetPlayerMagnetStrength(RunManager.GetBaseMagnet());
         PlayerStatsManager.ChangePlayerCurrentStaminaByAmount(RunManager.GetExtraStamina());
+        PlayerStatsManager.ChangePlayerMagnetStrengthByAmount(RunManager.GetExtraMagnet());
         yield return new WaitForSecondsRealtime(3);
         UnpauseGame();
         RunManager.SetIsRunOngoing(true);
         RunManager.SetExtraStamina(0);
+        RunManager.SetExtraMagnet(0);
     }
 
-    private void EndRun()
+    public void EndRun()
     {
         if (!RunManager.IsRunOngoing())
         {
@@ -96,7 +97,9 @@ public class RunController : MonoBehaviour
         }
         PlayerStatsManager.SetPlayerDepth(0);
         PlayerStatsManager.SetPlayerCurrentStamina(PlayerStatsManager.GetPlayerMaxStamina());
+        PlayerStatsManager.SetPlayerMagnetStrength(RunManager.GetBaseMagnet());
         RunManager.SetExtraStamina(0);
+        RunManager.SetExtraMagnet(0);
     }
     private IEnumerator ReduceStamina()
     {

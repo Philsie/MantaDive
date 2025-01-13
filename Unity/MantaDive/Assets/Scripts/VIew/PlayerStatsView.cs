@@ -26,6 +26,8 @@ public class PlayerStatsView : MonoBehaviour
         PlayerStatsManager.GetInstance().OnDepthChanged += UpdateDepthText;
         CollectiblesManager.GetInstance().OnCurrencyChanged += UpdateCurrencyText;
         CollectiblesManager.GetInstance().OnPremiumCurrencyChanged += UpdatePremiumCurrencyText;
+        UpdateCurrencyText(CollectiblesManager.GetPrimaryCurrency());
+        UpdatePremiumCurrencyText(CollectiblesManager.GetPremiumCurrency());
     }
 
 
