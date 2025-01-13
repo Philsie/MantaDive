@@ -138,13 +138,16 @@ public class DatabaseCallUtility : MonoBehaviour
     public static async Task<int> FetchDailySeed()
     {
 
-        string date = DateTime.Now.ToString("yyyy_MM_dd");
-        string url = $"{baseUrl}{dailySeedEndpoint}{date}";
+        string[] date = DateTime.Now.ToString("yyyy_MM_dd").Split('_');
+        date[1] = int.Parse(date[1]).ToString();
+        string fixedDate = string.Join("_", date);
+        
+        string url = $"{baseUrl}{dailySeedEndpoint}{fixedDate}";
 
         try
         {
             string jsonResponse = await client.GetStringAsync(url);
-
+            Debug.Log(jsonResponse);
             JObject jsonObject = JObject.Parse(jsonResponse);
             int seed = (int)jsonObject["Value"];
 
