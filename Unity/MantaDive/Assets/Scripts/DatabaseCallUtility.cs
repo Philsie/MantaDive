@@ -216,6 +216,7 @@ public class DatabaseCallUtility : MonoBehaviour
     {
 
         string url = $"{baseUrl}{getAvailableShopItemsEndpoint}{userID}";
+        Debug.Log(url);
 
         try
         {

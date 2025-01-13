@@ -37,7 +37,7 @@ public class SessionManager : MonoBehaviour
     {
         //TODO: Initialize session here after login flow is implemented
         //Dummy value is assigned for now
-        GetInstance().userID = 1;
+        GetInstance().userID = 0;
 
         return true;
     }

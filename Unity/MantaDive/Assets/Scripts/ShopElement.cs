@@ -1,10 +1,37 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ShopElement : MonoBehaviour
 {
-    public void OnClick()
+    public int Id;
+
+    public void openConfirmPopup()
     {
-        ShopElementController controller = GameObject.FindFirstObjectByType<ShopElementController>();
-        controller.ElementClicked(this);
+        Transform confirmPopupTransform = transform.Find("ShopElementConfirmPopup");
+        Transform ShopElementNormalTransform = transform.Find("ShopElementNormal");
+        confirmPopupTransform.gameObject.SetActive(true);
+        ShopElementNormalTransform.gameObject.SetActive(false);
+    }
+
+    public void closeConfirmPopup()
+    {
+        Transform confirmPopupTransform = transform.Find("ShopElementConfirmPopup");
+        Transform ShopElementNormalTransform = transform.Find("ShopElementNormal");
+        confirmPopupTransform.gameObject.SetActive(false);
+        ShopElementNormalTransform.gameObject.SetActive(true);
+    }
+
+
+    public void ConfirmPurchase()
+    {
+        DatabaseCallUtility.UnlockShopItemForUser(SessionManager.GetUserID(),this.Id);
+        //Debug.Log($"{SessionManager.GetUserID()},{this.Id}");
+
+
+        // Get the currently active scene
+        Scene activeScene = SceneManager.GetActiveScene();
+
+        // Reload the active scene
+        SceneManager.LoadScene(activeScene.name);
     }
 }
