@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7664005254682664826, guid: fb0405eba72beee4b9449ef28c0b3242, type: 3}
+      propertyPath: sceneConfigScriptableObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 7d0f8847264778542a1e1d7d8a0f2811, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -560,53 +564,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1048465579
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1048465581}
-  - component: {fileID: 1048465580}
-  m_Layer: 0
-  m_Name: RunController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1048465580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1048465579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d6f4c883d3bc0d4b80ff845717b95a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneManager: {fileID: 125377603}
-  endScene: {fileID: 11400000, guid: 9222c33f915fc6e4e95ca46e1bb64a8e, type: 2}
-  pauseScene: {fileID: 11400000, guid: 46119d83b3a7622429438bcbe8c2c3ae, type: 2}
---- !u!4 &1048465581
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1048465579}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 541.1015, y: 1007.3719, z: 78.58191}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1375203199
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,13 +860,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1048465580}
-        m_TargetAssemblyTypeName: RunController, Assembly-CSharp
-        m_MethodName: EndRun
-        m_Mode: 1
+      - m_Target: {fileID: 125377603}
+        m_TargetAssemblyTypeName: SceneManagerController, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 11400000, guid: 7d0f8847264778542a1e1d7d8a0f2811, type: 2}
+          m_ObjectArgumentAssemblyTypeName: SceneConfigScriptableObject, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -959,4 +916,3 @@ SceneRoots:
   m_Roots:
   - {fileID: 779952156}
   - {fileID: 125377602}
-  - {fileID: 1048465581}
