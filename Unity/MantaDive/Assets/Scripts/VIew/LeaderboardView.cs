@@ -2,6 +2,7 @@ using Microsoft.Unity.VisualStudio.Editor;
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,12 @@ public class LeaderboardView : MonoBehaviour
     //Color disabledButton = ColorUtility.TryParseHtmlString("#3131317F", out Color disabledButton);
     Color32 disabledButton = new Color32 (49,49,49,128);
     Color32 enabledButton = new Color32 (189,227,255,128);
+    [SerializeField]
+    private GameObject DailyButton;
+    [SerializeField]
+    private GameObject OverallButton;
+    [SerializeField]
+    private TMP_Text LeaderboardTypeText;
 
     public void PopulateOverall()
     {
@@ -23,9 +30,9 @@ public class LeaderboardView : MonoBehaviour
         StartCoroutine(WaitForSpots(false));
         isDailyShown = false;
         isOverallShown = true;
-        GameObject.Find("Daily").GetComponent<UnityEngine.UI.Image>().color =  enabledButton ;
-        GameObject.Find("Overall").GetComponent<UnityEngine.UI.Image>().color = disabledButton ;
-        GameObject.Find("Subtitle").GetComponent<TMPro.TMP_Text>().text = "Overall";
+        DailyButton.GetComponent<UnityEngine.UI.Image>().color =  enabledButton ;
+        OverallButton.GetComponent<UnityEngine.UI.Image>().color = disabledButton ;
+        LeaderboardTypeText.text = "Overall";
     }
     public void PopulateDaily()
     {
@@ -33,9 +40,9 @@ public class LeaderboardView : MonoBehaviour
         StartCoroutine(WaitForSpots(true));
         isDailyShown = true;
         isOverallShown = false;
-        GameObject.Find("Overall").GetComponent<UnityEngine.UI.Image>().color = enabledButton ;
-        GameObject.Find("Daily").GetComponent<UnityEngine.UI.Image>().color = disabledButton ;
-        GameObject.Find("Subtitle").GetComponent<TMPro.TMP_Text>().text = "Daily";
+        OverallButton.GetComponent<UnityEngine.UI.Image>().color = enabledButton ;
+        DailyButton.GetComponent<UnityEngine.UI.Image>().color = disabledButton ;
+        LeaderboardTypeText.text = "Daily";
     }
     private void Populate(List<UserDepth> spots)
     {
