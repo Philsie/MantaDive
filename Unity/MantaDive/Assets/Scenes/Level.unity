@@ -752,6 +752,7 @@ MonoBehaviour:
   sceneManager: {fileID: 841427515}
   endScene: {fileID: 11400000, guid: 9222c33f915fc6e4e95ca46e1bb64a8e, type: 2}
   pauseScene: {fileID: 11400000, guid: 46119d83b3a7622429438bcbe8c2c3ae, type: 2}
+  levelScene: {fileID: 11400000, guid: bd0f4a9e84b1d6543b4b5a7b2736fe5f, type: 2}
 --- !u!4 &271942195
 Transform:
   m_ObjectHideFlags: 0

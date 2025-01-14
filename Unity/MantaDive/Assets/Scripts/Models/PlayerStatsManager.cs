@@ -239,5 +239,11 @@ public class PlayerStatsManager : MonoBehaviour
         ChangePlayerMagnetStrengthByAmount(-magnetUpdate);
     }
 
+    public static void RefreshLevelUI()
+    {
+        Instance.OnDepthChanged?.Invoke(Instance.playerDepth);
+        Instance.OnMagnetChanged?.Invoke(Instance.playerMagnetStrength);
+        Instance.OnStaminaChanged?.Invoke(Instance.playerCurrentStamina);
+    }
 
 }
