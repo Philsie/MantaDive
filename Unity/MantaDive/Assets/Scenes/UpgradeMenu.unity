@@ -130,8 +130,6 @@ GameObject:
   - component: {fileID: 90448606}
   - component: {fileID: 90448610}
   - component: {fileID: 90448609}
-  - component: {fileID: 90448608}
-  - component: {fileID: 90448607}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -160,31 +158,6 @@ RectTransform:
   m_AnchoredPosition: {x: -415.99997, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &90448607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 90448605}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 700eb3b7a4561e44481e4e852570d76c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &90448608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 90448605}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe1b1cf2d9436094894f777d3f756b57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shopElement: {fileID: 4422370431400506359, guid: b03e606a0f936204e84b9ca1b45daad2, type: 3}
 --- !u!114 &90448609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1360,11 +1333,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3127849301409294378, guid: 37f33ac352f072c45b0e961303972e09, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 415
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3127849301409294378, guid: 37f33ac352f072c45b0e961303972e09, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -636.44995
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3127849301409294378, guid: 37f33ac352f072c45b0e961303972e09, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1598,11 +1571,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3127849301409294378, guid: 9dfe5c444ba60f64b88982c9540d05f5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 415
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3127849301409294378, guid: 9dfe5c444ba60f64b88982c9540d05f5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -207.15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3127849301409294378, guid: 9dfe5c444ba60f64b88982c9540d05f5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1686,6 +1659,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stamina: 50
   price: 50
+--- !u!1 &1625599181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1625599183}
+  - component: {fileID: 1625599182}
+  m_Layer: 0
+  m_Name: Instantiatior
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1625599182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625599181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74a82aafa70ee6f43bef8d6da60c3863, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1625599183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625599181}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 561.4423, y: 987.2036, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1728643390
 GameObject:
   m_ObjectHideFlags: 0
@@ -2037,3 +2054,4 @@ SceneRoots:
   - {fileID: 1876635770}
   - {fileID: 1751786968}
   - {fileID: 310726880}
+  - {fileID: 1625599183}

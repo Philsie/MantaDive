@@ -12,6 +12,8 @@ public class RunController : MonoBehaviour
     private SceneConfigScriptableObject endScene;
     [SerializeField]
     private SceneConfigScriptableObject pauseScene;
+    [SerializeField]
+    private SceneConfigScriptableObject levelScene;
     private static bool hasDbBeenUpdated = false;
 
     async void Start()
@@ -35,6 +37,26 @@ public class RunController : MonoBehaviour
     {
         RunManager.GetInstance().OnRunStateChange += EndRun;
         SceneManager.sceneUnloaded += OnPauseSceneUnloaded;
+        SceneManager.sceneUnloaded += ResetValues;
+        PlayerStatsManager.ChangePlayerMagnetStrengthByAmount(RunManager.GetExtraMagnet());
+        PlayerStatsManager.ChangePlayerCurrentStaminaByAmount(RunManager.GetExtraStamina());
+        PlayerStatsManager.RefreshLevelUI();
+    }
+    private void OnDisable()
+    {
+        RunManager.GetInstance().OnRunStateChange -= EndRun;
+    }
+
+    private void ResetValues(Scene scene)
+    {
+        if(scene.name.Equals(levelScene.name))
+        {
+            PlayerStatsManager.SetPlayerDepth(0);
+            PlayerStatsManager.SetPlayerCurrentStamina(PlayerStatsManager.GetPlayerMaxStamina());
+            PlayerStatsManager.SetPlayerMagnetStrength(RunManager.GetBaseMagnet());
+            RunManager.SetExtraStamina(0);
+            RunManager.SetExtraMagnet(0);
+        }
     }
 
     private void OnPauseSceneUnloaded(Scene scene)
@@ -47,16 +69,10 @@ public class RunController : MonoBehaviour
 
     private IEnumerator BeginRun()
     {
-        PlayerStatsManager.SetPlayerDepth(0);
-        PlayerStatsManager.SetPlayerCurrentStamina(PlayerStatsManager.GetPlayerMaxStamina());
-        PlayerStatsManager.SetPlayerMagnetStrength(RunManager.GetBaseMagnet());
-        PlayerStatsManager.ChangePlayerCurrentStaminaByAmount(RunManager.GetExtraStamina());
-        PlayerStatsManager.ChangePlayerMagnetStrengthByAmount(RunManager.GetExtraMagnet());
+        PlayerStatsManager.RefreshLevelUI();
         yield return new WaitForSecondsRealtime(3);
         UnpauseGame();
         RunManager.SetIsRunOngoing(true);
-        RunManager.SetExtraStamina(0);
-        RunManager.SetExtraMagnet(0);
     }
 
     public void EndRun()
@@ -95,11 +111,6 @@ public class RunController : MonoBehaviour
                 await DatabaseCallUtility
                     .UpdateUserMaxDepth(userID, PlayerStatsManager.GetPlayerDepth());
         }
-        PlayerStatsManager.SetPlayerDepth(0);
-        PlayerStatsManager.SetPlayerCurrentStamina(PlayerStatsManager.GetPlayerMaxStamina());
-        PlayerStatsManager.SetPlayerMagnetStrength(RunManager.GetBaseMagnet());
-        RunManager.SetExtraStamina(0);
-        RunManager.SetExtraMagnet(0);
     }
     private IEnumerator ReduceStamina()
     {
