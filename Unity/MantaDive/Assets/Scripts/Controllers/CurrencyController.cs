@@ -25,14 +25,14 @@ public class CurrencyController : MonoBehaviour
         //TMPro.TMP_Text PremiumText = transform.Find("PremiumPanel").Find("PremiumText").GetComponent<TMPro.TMP_Text>();
         if (PremiumText != null)
             {
-                PremiumText.text = $"Premium: {Currency.Currency.Premium.ToString()}";
+                PremiumText.text = $"{Currency.Currency.Premium.ToString()}";
             }
 
         TMPro.TMP_Text StandardText = transform.Find("StandardPanel/StandardText").GetComponent<TMPro.TMP_Text>();
         //TMPro.TMP_Text StandardText = transform.Find("StandardPanel").Find("StandardText").GetComponent<TMPro.TMP_Text>();
         if (StandardText != null)
             {
-                StandardText.text = $"Standard: {Currency.Currency.Standard.ToString()}";
+                StandardText.text = $"{Currency.Currency.Standard.ToString()}";
             }
 
     }
