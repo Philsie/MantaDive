@@ -11,18 +11,22 @@ Author: Philsie
 Date: 26/11/2024
 """
 
+#%% Imports
 from flasgger import Swagger, swag_from
 from flask import Flask, jsonify, request
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_serializer import Serializer
 from sqlalchemy.exc import IntegrityError
+from apscheduler.schedulers.background import BackgroundScheduler
 
 from DateTime import DateTime
 from random import randint
 
 import Tables as Tab
 
+
+#%% Setup
 # API-setup
 app = Flask("MantaDiveBackend")
 Swagger(app)
@@ -33,7 +37,14 @@ engine = create_engine("sqlite:///./dev.db")
 Session = sessionmaker(bind=engine)
 session = Session()
 
+#%% Scheduled Tasks
+def generateDailySeed():
+    with app.app_context():
+        print("*")
+        print(newSeed())
 
+
+#%% Routes
 @swag_from("./swagger/getAllUsers.yml")
 @app.route("/api/getAllUsers", methods=["GET"])
 def getUsers():
@@ -349,7 +360,15 @@ def unlockShopItem(UUID, ShopItemID):
         return jsonify(f"error: user with uuid-{UUID} does not exist")
 
 
+#%% on run
 if __name__ == "__main__":
+    #%% Start Scheduled Task
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(generateDailySeed, 'interval', minutes=1) # Checks 1x a minute
+    #scheduler.add_job(generateDailySeed, 'cron', hour=0, minute=0)  # Runs at midnight
+    scheduler.start()
+
+    #%% Start Server
     app.run(debug=True,host='0.0.0.0')
 
     session.close()
