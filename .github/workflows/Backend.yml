@@ -2,7 +2,7 @@ name: Deploy backend on push
 on:
   push:
     branches:
-      - python-backend_and_DB
+      - backend
   workflow_dispatch:
 
 jobs:
