@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: python-backend_and_DB
+          ref: backend
 
 
       # Step 2: Set up Docker
