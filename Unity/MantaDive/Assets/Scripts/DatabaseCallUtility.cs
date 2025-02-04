@@ -140,6 +140,7 @@ public class DatabaseCallUtility : MonoBehaviour
 
         string[] date = DateTime.Now.ToString("yyyy_MM_dd").Split('_');
         date[1] = int.Parse(date[1]).ToString();
+        date[2] = int.Parse(date[2]).ToString();
         string fixedDate = string.Join("_", date);
         
         string url = $"{baseUrl}{dailySeedEndpoint}{fixedDate}";
