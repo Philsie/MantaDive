@@ -65,7 +65,7 @@ public class LevelController : MonoBehaviour
         switch (nextNumber)
         {
             case int i when i < 520:
-                int enemyIndex = Random.Range(0, enemyPrefabs.Length - 1);
+                int enemyIndex = Random.Range(0, enemyPrefabs.Length);
                 Spawn(enemyPrefabs[enemyIndex]);
                 break;
             case int i when i < 800:
@@ -75,7 +75,7 @@ public class LevelController : MonoBehaviour
                 Spawn(premiumPrefab);
                 break;
             case int i when i < 1000:
-                int upgradeIndex = Random.Range(0, upgradePrefabs.Length - 1);
+                int upgradeIndex = Random.Range(0, upgradePrefabs.Length);
                 Spawn(upgradePrefabs[upgradeIndex]);
                 break;
             default:
