@@ -8,6 +8,36 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/EndScene.unity
+    guid: 143397771a434084d8682fb13b43de6b
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: aef4d4166c84bc54384196cf87fa2efa
+  - enabled: 1
+    path: Assets/Scenes/Leaderboard.unity
+    guid: 75d97526538f78440aaf9a8c529e6615
+  - enabled: 1
+    path: Assets/Scenes/Level.unity
+    guid: 370aa29966e42684da3df2e53e2ac174
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 1a767782ae812bf489612af779b84360
+  - enabled: 1
+    path: Assets/Scenes/PauseMenu.unity
+    guid: a6d053ef92edd644cad3301131bedd1c
+  - enabled: 1
+    path: Assets/Scenes/Premiumshop.unity
+    guid: 1b847cf1fe0a91048b6e1153c7a675bf
+  - enabled: 1
+    path: Assets/Scenes/SettingsMenu.unity
+    guid: 3f832b513cc524c4283ab5c3ed127dd4
+  - enabled: 1
+    path: Assets/Scenes/Shop.unity
+    guid: 878f360540872814f99b28a3a50d4c69
+  - enabled: 1
+    path: Assets/Scenes/UpgradeMenu.unity
+    guid: 34a7767128e5cb64f840e712bf4fba33
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
