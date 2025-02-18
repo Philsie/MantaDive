@@ -358,7 +358,21 @@ def unlockShopItem(UUID, ShopItemID):
             return jsonify(f"error: ShopItem with id-{ShopItemID} does not exist")
     else:
         return jsonify(f"error: user with uuid-{UUID} does not exist")
+    
 
+@app.route("/api/levelMetadata/<UUID>/", methods=["POST"])
+def levelMetadata(UUID):
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'No JSON payload received'}), 400
+        
+        # Process the payload (for example, print it)
+        print("Received payload:", data)
+        
+        return jsonify({'message': 'Payload received successfully', 'data': data}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 #%% on run
 if __name__ == "__main__":
