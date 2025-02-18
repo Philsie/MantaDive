@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
         if (!canShoot) return;
         StartCoroutine(ShootingCooldown());
         Instantiate(proyectile, transform.position, Quaternion.identity);
+        MetaDataManager.Instance.IncrementShots();
     }
 
     private void OnEnable()

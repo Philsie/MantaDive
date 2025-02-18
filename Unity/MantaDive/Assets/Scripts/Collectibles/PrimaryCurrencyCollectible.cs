@@ -28,6 +28,7 @@ public class PrimaryCurrencyCollectible : MonoBehaviour, ICollectible
         if (collision.gameObject.name.Equals("Player") && !isDone)
         {
             StartCoroutine(SelfDestroyWhenDone());
+            MetaDataManager.Instance.IncrementCoinsCollected();
             FireEvent();
         }
     }

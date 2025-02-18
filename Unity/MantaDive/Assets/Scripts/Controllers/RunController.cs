@@ -73,10 +73,12 @@ public class RunController : MonoBehaviour
         yield return new WaitForSecondsRealtime(3);
         UnpauseGame();
         RunManager.SetIsRunOngoing(true);
+        MetaDataManager.Instance.ResetAllData();
     }
 
     public void EndRun()
     {
+        MetaDataManager.Instance.SendDataToAPI();
         if (!RunManager.IsRunOngoing())
         {
             PauseGame();

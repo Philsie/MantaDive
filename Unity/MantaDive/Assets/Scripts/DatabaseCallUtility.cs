@@ -243,6 +243,46 @@ public class DatabaseCallUtility : MonoBehaviour
         return await SendPatchRequest(url);
     }
 
+
+    public static async Task<bool> PostLevelMetaData(float timeElapsed, int shotsFired, int enemiesHit, int coinsCollected)
+    {
+        string url = $"{baseUrl}levelMetadata/";
+
+        var payload = new
+        {
+            TimeElapsed = timeElapsed,
+            ShotsFired = shotsFired,
+            EnemiesHit = enemiesHit,
+            CoinsCollected = coinsCollected
+        };
+        string jsonPayload = JsonConvert.SerializeObject(payload);
+
+        try
+        {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url)
+            {
+                Content = new StringContent(jsonPayload, System.Text.Encoding.UTF8, "application/json")
+            };
+            HttpResponseMessage response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                Debug.Log("Level metadata posted successfully!");
+                return true;
+            }
+            else
+            {
+                Debug.LogError($"Failed to post level metadata. Status Code: {response.StatusCode}");
+                return false;
+            }
+        }
+        catch (HttpRequestException e)
+        {
+            Debug.LogError($"Request error: {e.Message}");
+            return false;
+        }
+    }
+
+
     private static string ReplaceJsonKey(string json, string oldKey, string newKey)
     {
         var objects = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(json);
@@ -256,4 +296,7 @@ public class DatabaseCallUtility : MonoBehaviour
         }
         return JsonConvert.SerializeObject(objects, Formatting.Indented);
     }
+
+
+
 }
