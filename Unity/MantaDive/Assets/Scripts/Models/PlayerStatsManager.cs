@@ -1,12 +1,11 @@
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using System;
 using System.Collections;
 public class PlayerStatsManager : MonoBehaviour
 {
     private static PlayerStatsManager Instance { get; set; }
-
+    [SerializeField]
+    private static PlayerStats playerDefaultStatsAsset;
     private static PlayerStats playerDefaultStats;
 
     private float playerMaxStamina;
@@ -52,11 +51,10 @@ public class PlayerStatsManager : MonoBehaviour
 
     private async void InitializePlayerStats()
     {
-        //TODO: Load player stats from DB based on userID
 
         if (playerDefaultStats == null)
         {
-            playerDefaultStats = AssetDatabase.LoadAssetAtPath<PlayerStats>("Assets/ScriptableObjects/PlayerStats.asset");
+            playerDefaultStats = playerDefaultStatsAsset;
             if (playerDefaultStats != null)
             {
                 playerCurrentStamina = playerDefaultStats.playerStamina;
@@ -70,6 +68,14 @@ public class PlayerStatsManager : MonoBehaviour
             else
             {
                 Debug.LogError("PlayerStats ScriptableObject not found in Resources!");
+
+                playerCurrentStamina = 100;
+                playerMaxStamina = 100;
+
+                playerBaseSpeed = 1;
+                playerCurrentSpeed = 1;
+
+                playerMagnetStrength = 0;
             }
         }
 
@@ -244,6 +250,11 @@ public class PlayerStatsManager : MonoBehaviour
         Instance.OnDepthChanged?.Invoke(Instance.playerDepth);
         Instance.OnMagnetChanged?.Invoke(Instance.playerMagnetStrength);
         Instance.OnStaminaChanged?.Invoke(Instance.playerCurrentStamina);
+    }
+
+    public static void SetDefaultAsset(PlayerStats playerDefault)
+    {
+        playerDefaultStatsAsset = playerDefault;
     }
 
 }

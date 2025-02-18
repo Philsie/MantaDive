@@ -2303,6 +2303,8 @@ MonoBehaviour:
   upgradePrefabs:
   - {fileID: 4859555242527191402, guid: a4a035072c399bc4c980b27a72d86803, type: 3}
   - {fileID: 5672355385226180479, guid: 15e4edfd2680b07448cdaa527cea68ea, type: 3}
+  - {fileID: 4859555242527191402, guid: a4a035072c399bc4c980b27a72d86803, type: 3}
+  - {fileID: 5672355385226180479, guid: 15e4edfd2680b07448cdaa527cea68ea, type: 3}
   xSpawnRange: 3
   spawnInterval: 3
 --- !u!4 &1874302270

@@ -13,6 +13,7 @@ public class DamageEnemy : MonoBehaviour
 
         if (hp <= 0)
         {
+            MetaDataManager.Instance.IncrementEnemiesHit();
             Destroy(transform.parent.gameObject);
         }
     }
