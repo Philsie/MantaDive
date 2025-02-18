@@ -359,7 +359,7 @@ def unlockShopItem(UUID, ShopItemID):
     else:
         return jsonify(f"error: user with uuid-{UUID} does not exist")
     
-
+@swag_from("./swagger/levelMetadata.yml")
 @app.route("/api/levelMetadata/<UUID>", methods=["POST"])
 def levelMetadata(UUID):
     try:

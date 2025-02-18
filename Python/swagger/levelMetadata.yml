@@ -1,0 +1,40 @@
+parameters:
+  - name: UUID
+    in: path
+    type: string
+    required: true
+    description: Unique identifier for the level.
+  - in: body
+    name: body
+    description: Level metadata payload.
+    required: true
+    schema:
+      type: object # Payload is an object, but no further details
+consumes:
+  - application/json
+produces:
+  - application/json
+responses:
+  200:
+    description: Payload received successfully.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+        data:
+          type: object
+  400:
+    description: Bad request. No JSON payload received.
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
+  500:
+    description: Internal server error.
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
