@@ -244,10 +244,9 @@ public class DatabaseCallUtility : MonoBehaviour
     }
 
 
-    public static async Task<bool> PostLevelMetaData(float timeElapsed, int shotsFired, int enemiesHit, int coinsCollected)
+    public static async Task<bool> PostLevelMetaData(int userId, float timeElapsed, int shotsFired, int enemiesHit, int coinsCollected)
     {
-        string url = $"{baseUrl}levelMetadata/";
-
+        string url = $"{baseUrl}levelMetadata/{userId}";
         var payload = new
         {
             TimeElapsed = timeElapsed,
@@ -255,6 +254,8 @@ public class DatabaseCallUtility : MonoBehaviour
             EnemiesHit = enemiesHit,
             CoinsCollected = coinsCollected
         };
+        Debug.Log(payload.ToString());
+        Debug.Log(url);
         string jsonPayload = JsonConvert.SerializeObject(payload);
 
         try

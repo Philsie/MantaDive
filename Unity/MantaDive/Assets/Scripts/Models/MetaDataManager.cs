@@ -41,6 +41,11 @@ public class MetaDataManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
+    private void Update()
+    {
+        // Automatically track time while the manager is active
+        _timeElapsed += Time.deltaTime;
+    }
 
     // Public methods for time
     public float GetCurrentTime() => _timeElapsed;
@@ -72,7 +77,11 @@ public class MetaDataManager : MonoBehaviour
     }
     public async void SendDataToAPI()
     {
+        if (_timeElapsed == 0 && _shotsFired == 0 &&
+        _enemiesHit == 0 && _coinsCollected == 0) return;
+
         bool success = await DatabaseCallUtility.PostLevelMetaData(
+            SessionManager.GetUserID(),
             _timeElapsed,
             _shotsFired,
             _enemiesHit,
