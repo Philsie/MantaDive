@@ -360,7 +360,7 @@ def unlockShopItem(UUID, ShopItemID):
         return jsonify(f"error: user with uuid-{UUID} does not exist")
     
 
-@app.route("/api/levelMetadata/<UUID>/", methods=["POST"])
+@app.route("/api/levelMetadata/<UUID>", methods=["POST"])
 def levelMetadata(UUID):
     try:
         data = request.get_json()
