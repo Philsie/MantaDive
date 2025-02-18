@@ -1,0 +1,42 @@
+# swagger/get_levelMetadata.yml
+parameters:
+  - name: levelMetadataId
+    in: path
+    type: integer
+    required: true
+    description: Unique identifier for the level metadata entry.
+produces:
+  - application/json
+responses:
+  200:
+    description: Success.
+    schema:
+      type: object
+      properties:
+        id:
+          type: integer
+        player_id:
+          type: string
+        time_elapsed:
+          type: number
+          format: float
+        shots_fired:
+          type: integer
+        enemies_hit:
+          type: integer
+        coins_collected:
+          type: integer
+  404:
+    description: Entry not found.
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
+  500:
+    description: Internal server error.
+    schema:
+      type: object
+      properties:
+        error:
+          type: string

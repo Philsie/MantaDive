@@ -119,3 +119,16 @@ class ShopItem(Base):
             }.items()
             if include
         }
+    
+class levelMetadata(Base):
+    __tablename__ = 'levelMetadata'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    player_id = Column(Integer, nullable=False)
+    time_elapsed = Column(Float, nullable=False)
+    shots_fired = Column(Integer, nullable=False)
+    enemies_hit = Column(Integer, nullable=False)
+    coins_collected = Column(Integer, nullable=False)
+
+    def __repr__(self):
+        return f"<PlayerGameData(id={self.id}, player_id={self.player_id}, time_elapsed={self.time_elapsed}, shots_fired={self.shots_fired}, enemies_hit={self.enemies_hit}, coins_collected={self.coins_collected})>"

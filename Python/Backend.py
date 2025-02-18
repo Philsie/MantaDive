@@ -16,6 +16,7 @@ from flasgger import Swagger, swag_from
 from flask import Flask, jsonify, request
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy_serializer import Serializer
 from sqlalchemy.exc import IntegrityError
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -296,10 +297,10 @@ def getAvailableShopItems(UUID):
 
         # check if PreReq are fullfilled
         for shopItemID in availableUpgrades:
-             shopItem = session.query(Tab.ShopItem).filter(Tab.ShopItem.ID == int(shopItemID)).first()
-             if shopItem.PreReq == "":
+            shopItem = session.query(Tab.ShopItem).filter(Tab.ShopItem.ID == int(shopItemID)).first()
+            if shopItem.PreReq == "":
                 res.append(shopItem.__export__())
-             else:
+            else:
                 if all(element in boughtUpgrades for element in shopItem.PreReq.split("_")):
                     res.append(shopItem.__export__())
 
@@ -358,21 +359,64 @@ def unlockShopItem(UUID, ShopItemID):
             return jsonify(f"error: ShopItem with id-{ShopItemID} does not exist")
     else:
         return jsonify(f"error: user with uuid-{UUID} does not exist")
-    
-@swag_from("./swagger/levelMetadata.yml")
+        
+@swag_from("./swagger/post_levelMetadata.yml")
 @app.route("/api/levelMetadata/<UUID>", methods=["POST"])
-def levelMetadata(UUID):
+def postLevelMetadata(UUID):
     try:
         data = request.get_json()
         if not data:
-            return jsonify({'error': 'No JSON payload received'}), 400
-        
-        # Process the payload (for example, print it)
-        print("Received payload:", data)
-        
-        return jsonify({'message': 'Payload received successfully', 'data': data}), 200
+            return jsonify({"error": "Invalid JSON payload"}), 400
+
+        time_elapsed = data.get('TimeElapsed')
+        shots_fired = data.get('ShotsFired')
+        enemies_hit = data.get('EnemiesHit')
+        coins_collected = data.get('CoinsCollected')
+
+        if None in (time_elapsed, shots_fired, enemies_hit, coins_collected):
+            return jsonify({"error": "Missing required fields"}), 400
+
+        newLevelMetadata = Tab.levelMetadata(
+            player_id=UUID,
+            time_elapsed=time_elapsed,
+            shots_fired=shots_fired,
+            enemies_hit=enemies_hit,
+            coins_collected=coins_collected,
+        )
+        session.add(newLevelMetadata)
+        session.commit()
+
+        return jsonify({"message": "Game data added successfully"}), 201
+
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        print(f"Error: {e}")  # Good for debugging
+        return jsonify({"error": "An error occurred"}), 500
+
+@swag_from("./swagger/get_levelMetadata.yml")
+@app.route("/api/levelMetadata/<levelMetadataId>", methods=["GET"])
+def getLevelMetadata(levelMetadataId):
+    try:
+        level_data = session.query(Tab.levelMetadata).filter_by(
+            id=levelMetadataId).one()
+
+        result = {
+            'id': level_data.id,
+            'player_id': level_data.player_id,
+            'time_elapsed': level_data.time_elapsed,
+            'shots_fired': level_data.shots_fired,
+            'enemies_hit': level_data.enemies_hit,
+            'coins_collected': level_data.coins_collected,
+        }
+
+        return jsonify(result), 200
+
+    except NoResultFound:
+        return jsonify({"error": "Entry not found"}), 404
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"error": "An error occurred"}), 500
+
 
 #%% on run
 if __name__ == "__main__":

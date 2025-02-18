@@ -1,31 +1,40 @@
+# swagger/post_levelMetadata.yml
 parameters:
   - name: UUID
     in: path
     type: string
     required: true
-    description: Unique identifier for the level.
+    description: Unique identifier for the player.
   - in: body
     name: body
     description: Level metadata payload.
     required: true
     schema:
-      type: object # Payload is an object, but no further details
+      type: object
+      properties:
+        TimeElapsed:
+          type: number
+          format: float
+        ShotsFired:
+          type: integer
+        EnemiesHit:
+          type: integer
+        CoinsCollected:
+          type: integer
 consumes:
   - application/json
 produces:
   - application/json
 responses:
-  200:
-    description: Payload received successfully.
+  201:
+    description: Game data added successfully.
     schema:
       type: object
       properties:
         message:
           type: string
-        data:
-          type: object
   400:
-    description: Bad request. No JSON payload received.
+    description: Bad request.
     schema:
       type: object
       properties:
