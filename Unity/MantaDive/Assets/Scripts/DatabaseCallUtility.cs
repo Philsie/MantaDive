@@ -246,7 +246,7 @@ public class DatabaseCallUtility : MonoBehaviour
 
     public static async Task<bool> PostLevelMetaData(int userId, float timeElapsed, int shotsFired, int enemiesHit, int coinsCollected)
     {
-        string url = $"{baseUrl}levelMetadata/{userId}";
+        string url = $"{baseUrl}postLevelMetadata/{userId}";
         var payload = new
         {
             TimeElapsed = timeElapsed,
