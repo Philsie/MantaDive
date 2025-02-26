@@ -430,8 +430,6 @@ def get_statistics():
         Tab.levelMetadata.enemies_hit,
         Tab.levelMetadata.coins_collected
     ).all()
-    
-    session.close()
 
     # Extract the values for each field
     time_elapsed_values = [d[0] for d in data if d[0] is not None]
