@@ -423,50 +423,63 @@ def getLevelMetadata(levelMetadataId):
 @app.route("/stats", methods=["GET"])
 def get_statistics():
 
-    # Aggregate statistics for the last four fields using the Tab alias for levelMetadata
-    stats = session.query(
-        func.avg(Tab.levelMetadata.time_elapsed).label("avg_time"),
-        func.avg(Tab.levelMetadata.shots_fired).label("avg_shots"),
-        func.avg(Tab.levelMetadata.enemies_hit).label("avg_hits"),
-        func.avg(Tab.levelMetadata.coins_collected).label("avg_coins"),
-    ).one()
-
+    # Fetch data points for the four fields
+    data = session.query(
+        Tab.levelMetadata.time_elapsed,
+        Tab.levelMetadata.shots_fired,
+        Tab.levelMetadata.enemies_hit,
+        Tab.levelMetadata.coins_collected
+    ).all()
+    
     session.close()
 
-    # Handle None values by replacing them with 0 (or another appropriate value)
-    stats_dict = {
-        "avg_time": stats.avg_time if stats.avg_time is not None else 0,
-        "avg_shots": stats.avg_shots if stats.avg_shots is not None else 0,
-        "avg_hits": stats.avg_hits if stats.avg_hits is not None else 0,
-        "avg_coins": stats.avg_coins if stats.avg_coins is not None else 0,
-    }
+    # Extract the values for each field
+    time_elapsed_values = [d[0] for d in data if d[0] is not None]
+    shots_fired_values = [d[1] for d in data if d[1] is not None]
+    enemies_hit_values = [d[2] for d in data if d[2] is not None]
+    coins_collected_values = [d[3] for d in data if d[3] is not None]
 
-    labels = ["Time Elapsed", "Shots Fired", "Enemies Hit", "Coins Collected"]
-    values = [
-        stats_dict["avg_time"],
-        stats_dict["avg_shots"],
-        stats_dict["avg_hits"],
-        stats_dict["avg_coins"],
-    ]
-
-    # Create subplots for 4 different charts
+    # Create subplots for 4 different line graphs
     fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 
-    colors = ["blue", "red", "green", "orange"]
+    # Line graph for time_elapsed (continuous, so we use unique values)
+    axes[0, 0].plot(sorted(set(time_elapsed_values)), [time_elapsed_values.count(i) for i in sorted(set(time_elapsed_values))], marker='o', color='blue')
+    axes[0, 0].set_title("Time Elapsed")
+    axes[0, 0].set_xlabel("Time (seconds)")
+    axes[0, 0].set_ylabel("Frequency")
 
-    for i, ax in enumerate(axes.flat):
-        ax.bar([labels[i]], [values[i]], color=colors[i])
-        ax.set_title(labels[i])
-        ax.set_ylabel("Average Value")
+    # Line graph for shots_fired (integer values)
+    if shots_fired_values:
+        shots_fired_counts = [shots_fired_values.count(i) for i in range(min(shots_fired_values), max(shots_fired_values) + 1)]
+        axes[0, 1].plot(range(min(shots_fired_values), max(shots_fired_values) + 1), shots_fired_counts, marker='o', color='red')
+        axes[0, 1].set_title("Shots Fired")
+        axes[0, 1].set_xlabel("Shots")
+        axes[0, 1].set_ylabel("Frequency")
+
+    # Line graph for enemies_hit (integer values)
+    if enemies_hit_values:
+        enemies_hit_counts = [enemies_hit_values.count(i) for i in range(min(enemies_hit_values), max(enemies_hit_values) + 1)]
+        axes[1, 0].plot(range(min(enemies_hit_values), max(enemies_hit_values) + 1), enemies_hit_counts, marker='o', color='green')
+        axes[1, 0].set_title("Enemies Hit")
+        axes[1, 0].set_xlabel("Enemies")
+        axes[1, 0].set_ylabel("Frequency")
+
+    # Line graph for coins_collected (integer values)
+    if coins_collected_values:
+        coins_collected_counts = [coins_collected_values.count(i) for i in range(min(coins_collected_values), max(coins_collected_values) + 1)]
+        axes[1, 1].plot(range(min(coins_collected_values), max(coins_collected_values) + 1), coins_collected_counts, marker='o', color='orange')
+        axes[1, 1].set_title("Coins Collected")
+        axes[1, 1].set_xlabel("Coins")
+        axes[1, 1].set_ylabel("Frequency")
 
     plt.tight_layout()
 
     # Convert plot to image
     img_io = io.BytesIO()
-    plt.savefig(img_io, format="png")
+    plt.savefig(img_io, format='png')
     img_io.seek(0)
-
-    return Response(img_io.getvalue(), mimetype="image/png")
+    
+    return Response(img_io.getvalue(), mimetype='image/png')
 
 
 # %% on run
