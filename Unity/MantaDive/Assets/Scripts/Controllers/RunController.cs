@@ -78,13 +78,13 @@ public class RunController : MonoBehaviour
 
     public void EndRun()
     {
-        MetaDataManager.Instance.SendDataToAPI();
         if (!RunManager.IsRunOngoing())
         {
             PauseGame();
             RunManager.SetIsGamePaused(true);
             sceneManager.LoadScene(endScene);
             UpdateDB();
+            MetaDataManager.Instance.SendDataToAPI();
         }
     }
 
