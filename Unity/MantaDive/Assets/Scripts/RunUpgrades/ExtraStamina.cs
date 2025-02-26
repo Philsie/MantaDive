@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 
 public class ExtraStamina : MonoBehaviour, IRunUpgrade
@@ -8,6 +9,10 @@ public class ExtraStamina : MonoBehaviour, IRunUpgrade
     [SerializeField]
     private float price = 50;
     private float currentAmount = 0;
+    [SerializeField]
+    private TMP_Text coins;
+    [SerializeField]
+    private string textcoins = "0";
     public void ApplyEffect()
     {
         RunManager.ChangeExtraStamina(stamina);
@@ -22,6 +27,8 @@ public class ExtraStamina : MonoBehaviour, IRunUpgrade
     public async void DeductCurrency()
     {
         currentAmount -= price;
+        textcoins = currentAmount.ToString();
+        coins.text = textcoins;
         await DatabaseCallUtility.UpdateUserPrimaryCurrency(SessionManager.GetUserID(), currentAmount);
     }
     
