@@ -10,15 +10,15 @@ Branch: python-backend_and_DB
 Author: Philsie
 Date: 26/11/2024
 """
-
+# %% Imports
 import io
 from random import randint
 
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 from apscheduler.schedulers.background import BackgroundScheduler
 from DateTime import DateTime
 
-# %% Imports
 from flasgger import Swagger, swag_from
 from flask import Flask, Response, jsonify, request
 from sqlalchemy import create_engine, func
@@ -441,26 +441,26 @@ def get_statistics():
     if not time_elapsed_values:
         return "No data available for time_elapsed", 400
 
-    # Group time_elapsed into 10-second bins
-    time_elapsed_bins = range(0, int(max(time_elapsed_values) // 10) * 10 + 10, 10)
-    time_elapsed_counts = [sum(1 for t in time_elapsed_values if t >= bin and t < bin + 10) for bin in time_elapsed_bins]
-
-    # Create subplots for 4 different line graphs
+    # Create subplots for 4 different graphs
     fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 
-    # Line graph for time_elapsed (grouped into 10-second bins)
-    axes[0, 0].plot(time_elapsed_bins, time_elapsed_counts, marker='o', color='blue')
+    # Histogram for time_elapsed (grouped into 10-second bins)
+    axes[0, 0].hist(time_elapsed_values, bins=range(0, int(max(time_elapsed_values)) + 10, 10), color='blue', edgecolor='black')
     axes[0, 0].set_title("Time Elapsed (10s Bins)")
     axes[0, 0].set_xlabel("Time (seconds)")
     axes[0, 0].set_ylabel("Frequency")
+    axes[0, 0].grid(True)  # Enable grid lines
+    axes[0, 0].yaxis.set_major_locator(MaxNLocator(integer=True))  # Ensure y-axis shows only full integers
 
     # Line graph for shots_fired (integer values)
     if shots_fired_values:
         shots_fired_counts = [shots_fired_values.count(i) for i in range(min(shots_fired_values), max(shots_fired_values) + 1)]
-        axes[0, 1].hist(range(min(shots_fired_values), max(shots_fired_values) + 1), shots_fired_counts, marker='o', color='red')
+        axes[0, 1].plot(range(min(shots_fired_values), max(shots_fired_values) + 1), shots_fired_counts, marker='o', color='red')
         axes[0, 1].set_title("Shots Fired")
         axes[0, 1].set_xlabel("Shots")
         axes[0, 1].set_ylabel("Frequency")
+        axes[0, 1].grid(True)  # Enable grid lines
+        axes[0, 1].yaxis.set_major_locator(MaxNLocator(integer=True))  # Ensure y-axis shows only full integers
 
     # Line graph for enemies_hit (integer values)
     if enemies_hit_values:
@@ -469,6 +469,8 @@ def get_statistics():
         axes[1, 0].set_title("Enemies Hit")
         axes[1, 0].set_xlabel("Enemies")
         axes[1, 0].set_ylabel("Frequency")
+        axes[1, 0].grid(True)  # Enable grid lines
+        axes[1, 0].yaxis.set_major_locator(MaxNLocator(integer=True))  # Ensure y-axis shows only full integers
 
     # Line graph for coins_collected (integer values)
     if coins_collected_values:
@@ -477,6 +479,8 @@ def get_statistics():
         axes[1, 1].set_title("Coins Collected")
         axes[1, 1].set_xlabel("Coins")
         axes[1, 1].set_ylabel("Frequency")
+        axes[1, 1].grid(True)  # Enable grid lines
+        axes[1, 1].yaxis.set_major_locator(MaxNLocator(integer=True))  # Ensure y-axis shows only full integers
 
     plt.tight_layout()
 
