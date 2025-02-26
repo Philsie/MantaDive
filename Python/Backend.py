@@ -11,23 +11,25 @@ Author: Philsie
 Date: 26/11/2024
 """
 
-#%% Imports
+import io
+from random import randint
+
+import matplotlib.pyplot as plt
+from apscheduler.schedulers.background import BackgroundScheduler
+from DateTime import DateTime
+
+# %% Imports
 from flasgger import Swagger, swag_from
-from flask import Flask, jsonify, request
-from sqlalchemy import create_engine, select
+from flask import Flask, Response, jsonify, request
+from sqlalchemy import create_engine, func
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy_serializer import Serializer
-from sqlalchemy.exc import IntegrityError
-from apscheduler.schedulers.background import BackgroundScheduler
-
-from DateTime import DateTime
-from random import randint
 
 import Tables as Tab
 
-
-#%% Setup
+# %% Setup
 # API-setup
 app = Flask("MantaDiveBackend")
 Swagger(app)
@@ -418,7 +420,56 @@ def getLevelMetadata(levelMetadataId):
         return jsonify({"error": "An error occurred"}), 500
 
 
-#%% on run
+@app.route("/stats", methods=["GET"])
+def get_statistics():
+
+    # Aggregate statistics for the last four fields using the Tab alias for levelMetadata
+    stats = session.query(
+        func.avg(Tab.levelMetadata.time_elapsed).label("avg_time"),
+        func.avg(Tab.levelMetadata.shots_fired).label("avg_shots"),
+        func.avg(Tab.levelMetadata.enemies_hit).label("avg_hits"),
+        func.avg(Tab.levelMetadata.coins_collected).label("avg_coins"),
+    ).one()
+
+    session.close()
+
+    # Handle None values by replacing them with 0 (or another appropriate value)
+    stats_dict = {
+        "avg_time": stats.avg_time if stats.avg_time is not None else 0,
+        "avg_shots": stats.avg_shots if stats.avg_shots is not None else 0,
+        "avg_hits": stats.avg_hits if stats.avg_hits is not None else 0,
+        "avg_coins": stats.avg_coins if stats.avg_coins is not None else 0,
+    }
+
+    labels = ["Time Elapsed", "Shots Fired", "Enemies Hit", "Coins Collected"]
+    values = [
+        stats_dict["avg_time"],
+        stats_dict["avg_shots"],
+        stats_dict["avg_hits"],
+        stats_dict["avg_coins"],
+    ]
+
+    # Create subplots for 4 different charts
+    fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+
+    colors = ["blue", "red", "green", "orange"]
+
+    for i, ax in enumerate(axes.flat):
+        ax.bar([labels[i]], [values[i]], color=colors[i])
+        ax.set_title(labels[i])
+        ax.set_ylabel("Average Value")
+
+    plt.tight_layout()
+
+    # Convert plot to image
+    img_io = io.BytesIO()
+    plt.savefig(img_io, format="png")
+    img_io.seek(0)
+
+    return Response(img_io.getvalue(), mimetype="image/png")
+
+
+# %% on run
 if __name__ == "__main__":
     #%% Start Scheduled Task
     scheduler = BackgroundScheduler()
