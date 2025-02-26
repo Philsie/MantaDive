@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.7411765, g: 0.8901961, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -487,7 +487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7411765, g: 0.8901961, b: 1, a: 0.627451}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1315,6 +1315,18 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 81e4d47c0b618454598c08e55e340c8e, type: 3}
+    - target: {fileID: 2452582585927617421, guid: 37f33ac352f072c45b0e961303972e09, type: 3}
+      propertyPath: m_Color.a
+      value: 0.627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452582585927617421, guid: 37f33ac352f072c45b0e961303972e09, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8901961
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452582585927617421, guid: 37f33ac352f072c45b0e961303972e09, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7411765
+      objectReference: {fileID: 0}
     - target: {fileID: 3127849301409294378, guid: 37f33ac352f072c45b0e961303972e09, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1580,6 +1592,18 @@ PrefabInstance:
     - target: {fileID: 2422489654751663577, guid: 9dfe5c444ba60f64b88982c9540d05f5, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452582585927617421, guid: 9dfe5c444ba60f64b88982c9540d05f5, type: 3}
+      propertyPath: m_Color.a
+      value: 0.627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452582585927617421, guid: 9dfe5c444ba60f64b88982c9540d05f5, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8901961
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452582585927617421, guid: 9dfe5c444ba60f64b88982c9540d05f5, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7411765
       objectReference: {fileID: 0}
     - target: {fileID: 3127849301409294378, guid: 9dfe5c444ba60f64b88982c9540d05f5, type: 3}
       propertyPath: m_Pivot.x
@@ -2064,7 +2088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7411765, g: 0.8901961, b: 1, a: 0.627451}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
