@@ -1,5 +1,8 @@
 # API Endpoints
 
+## Swagger
+- `/apidocs`: Overview of Enpoints with testing
+
 ## User Management
 - **GET `/api/getAllUsers`**: Retrieve all users.
 - **GET `/api/user/<UUID>`**: Retrieve or update a specific user.
