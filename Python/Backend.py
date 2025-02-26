@@ -437,19 +437,27 @@ def get_statistics():
     enemies_hit_values = [d[2] for d in data if d[2] is not None]
     coins_collected_values = [d[3] for d in data if d[3] is not None]
 
+    # Check if time_elapsed_values is empty to prevent errors
+    if not time_elapsed_values:
+        return "No data available for time_elapsed", 400
+
+    # Group time_elapsed into 10-second bins
+    time_elapsed_bins = range(0, int(max(time_elapsed_values) // 10) * 10 + 10, 10)
+    time_elapsed_counts = [sum(1 for t in time_elapsed_values if t >= bin and t < bin + 10) for bin in time_elapsed_bins]
+
     # Create subplots for 4 different line graphs
     fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 
-    # Line graph for time_elapsed (continuous, so we use unique values)
-    axes[0, 0].plot(sorted(set(time_elapsed_values)), [time_elapsed_values.count(i) for i in sorted(set(time_elapsed_values))], marker='o', color='blue')
-    axes[0, 0].set_title("Time Elapsed")
+    # Line graph for time_elapsed (grouped into 10-second bins)
+    axes[0, 0].plot(time_elapsed_bins, time_elapsed_counts, marker='o', color='blue')
+    axes[0, 0].set_title("Time Elapsed (10s Bins)")
     axes[0, 0].set_xlabel("Time (seconds)")
     axes[0, 0].set_ylabel("Frequency")
 
     # Line graph for shots_fired (integer values)
     if shots_fired_values:
         shots_fired_counts = [shots_fired_values.count(i) for i in range(min(shots_fired_values), max(shots_fired_values) + 1)]
-        axes[0, 1].plot(range(min(shots_fired_values), max(shots_fired_values) + 1), shots_fired_counts, marker='o', color='red')
+        axes[0, 1].hist(range(min(shots_fired_values), max(shots_fired_values) + 1), shots_fired_counts, marker='o', color='red')
         axes[0, 1].set_title("Shots Fired")
         axes[0, 1].set_xlabel("Shots")
         axes[0, 1].set_ylabel("Frequency")
